@@ -1,5 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using EmployeeManager.Model;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace EmployeeManager.Authentication
 {
@@ -8,10 +11,6 @@ namespace EmployeeManager.Authentication
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
 
-        }
-        protected override void OnModelCreating(ModelBuilder builder)
-        {
-            base.OnModelCreating(builder);
         }
     }
 }

@@ -26,8 +26,21 @@ namespace EmployeeManager
         {
             services.AddControllers();
 
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy",
+               builder =>
+               {
+                   builder.SetIsOriginAllowed(_ => true)
+                   .AllowAnyHeader()
+                   .AllowAnyMethod()
+                   .AllowCredentials();
+               });
+            });
+
             // For Entity Framework  
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ConnStr")));
+
 
             // For Identity  
             services.AddIdentity<ApplicationUser, IdentityRole>()
@@ -65,6 +78,8 @@ namespace EmployeeManager
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseCors("CorsPolicy");
 
             app.UseRouting();
 
