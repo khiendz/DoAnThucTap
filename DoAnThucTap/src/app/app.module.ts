@@ -10,10 +10,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { JwtInterceptor, ErrorInterceptor } from './_helpers';
+import { TimekeepingComponent } from './pages/timekeeping/timekeeping.component';
+import { Appointment, Service } from 'src/app/pages/timekeeping/timekeeping.service';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
@@ -29,7 +31,7 @@ import { JwtInterceptor, ErrorInterceptor } from './_helpers';
     AppRoutingModule,
     HttpClientModule,
   ],
-  providers: [AuthService, ScreenService, AppInfoService,
+  providers: [AuthService, ScreenService, AppInfoService, Service,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     Title,],
