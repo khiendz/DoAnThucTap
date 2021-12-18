@@ -8,9 +8,13 @@ using Microsoft.EntityFrameworkCore;
 using EmployeeManager.Authentication;
 using EmployeeManager.Model;
 using EmployeeManager.DAL;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EmployeeManager.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
+    [Authorize]
     public class CHAMCONGsController : Controller
     {
         private readonly DBcontext _context;
@@ -20,132 +24,55 @@ namespace EmployeeManager.Controllers
             _context = context; 
         }
 
-        // GET: CHAMCONGs
-        public async Task<IActionResult> Index()
+        [HttpGet]
+        [Route("getall")]
+        public IEnumerable<CHAMCONG> GetAll()
         {
-            return View(await _context.ChamCong.ToListAsync());
+            IEnumerable<CHAMCONG> listChamCong = _context.ChamCong.ToList();
+            return listChamCong;
         }
 
-        // GET: CHAMCONGs/Details/5
-        public async Task<IActionResult> Details(int? id)
+        [HttpGet]
+        [Route("getdetail")]
+        public CHAMCONG Details(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            CHAMCONG chamCong = _context.ChamCong.FirstOrDefault(x => x.maChamCong == id);
 
-            var cHAMCONG = await _context.ChamCong
-                .FirstOrDefaultAsync(m => m.maChamCong == id);
-            if (cHAMCONG == null)
-            {
-                return NotFound();
-            }
-
-            return View(cHAMCONG);
+            return chamCong;
         }
 
-        // GET: CHAMCONGs/Create
-        public IActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: CHAMCONGs/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("maChamCong,ngayChamCong,tenCongViec,gioBatDau,gioKetThuc,maNhanVien")] CHAMCONG cHAMCONG)
+        [Route("create")]
+        public int Create([FromBody] CHAMCONG chamCong)
         {
-            if (ModelState.IsValid)
-            {
-                _context.Add(cHAMCONG);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(cHAMCONG);
+            CHAMCONG _chamCong = chamCong;
+            _chamCong.maChamCong = _context.ChamCong.LastOrDefault().maChamCong++;
+            _context.ChamCong.Add(_chamCong);
+            _context.SaveChanges();
+            return (int)_chamCong.maChamCong;
         }
 
-        // GET: CHAMCONGs/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var cHAMCONG = await _context.ChamCong.FindAsync(id);
-            if (cHAMCONG == null)
-            {
-                return NotFound();
-            }
-            return View(cHAMCONG);
-        }
-
-        // POST: CHAMCONGs/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("maChamCong,ngayChamCong,tenCongViec,gioBatDau,gioKetThuc,maNhanVien")] CHAMCONG cHAMCONG)
+        [Route("update")]
+        public int EditChamCong(CHAMCONG chamCong)
         {
-            if (id != cHAMCONG.maChamCong)
-            {
-                return NotFound();
-            }
+            _context.Set<CHAMCONG>().Remove(_context.ChamCong.FirstOrDefault(x => x.maChamCong == chamCong.maChamCong));
+            _context.ChamCong.Add(chamCong);
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(cHAMCONG);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!CHAMCONGExists(cHAMCONG.maChamCong))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(cHAMCONG);
+            _context.SaveChanges();
+            return (int)chamCong.maChamCong;
         }
 
-        // GET: CHAMCONGs/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        [HttpPost]
+        [Route("update")]
+        public int DeleteChamCong(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            _context.Set<CHAMCONG>().Remove(_context.ChamCong.FirstOrDefault(x => x.maChamCong == id));
+          
 
-            var cHAMCONG = await _context.ChamCong
-                .FirstOrDefaultAsync(m => m.maChamCong == id);
-            if (cHAMCONG == null)
-            {
-                return NotFound();
-            }
-
-            return View(cHAMCONG);
+            _context.SaveChanges();
+            return id;
         }
-
-        // POST: CHAMCONGs/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var cHAMCONG = await _context.ChamCong.FindAsync(id);
-            _context.ChamCong.Remove(cHAMCONG);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
-
         private bool CHAMCONGExists(int id)
         {
             return _context.ChamCong.Any(e => e.maChamCong == id);

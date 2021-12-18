@@ -11,7 +11,7 @@ namespace EmployeeManager.Model
     public class CHAMCONG
     {
         [Key]
-        public int maChamCong { get; set; }
+        public int? maChamCong { get; set; }
         public DateTime ngayChamCong { get; set; }
         public string tenCongViec { get; set; }
         public DateTime gioBatDau { get; set; }

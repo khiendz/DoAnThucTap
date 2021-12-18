@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Luong } from '../../model/Account/luong.model'
+import { Luong } from '../../model/Account/luong.model';
+import { environment } from '../../../environments/environment';
 
 const apiUrl = {
   urlGetAllLuong: 'luongs/getall',
@@ -15,7 +16,7 @@ export class LuongService {
   constructor(private httpClient: HttpClient) {}
 
   public getAllLuong() {
-    return this.httpClient.get(apiUrl.urlGetAllLuong);
+    return this.httpClient.get(`${environment.apiUrl}/${apiUrl.urlGetAllLuong}`);
   }
 
 //   public getRegularExpressionById(idRegex: number) {

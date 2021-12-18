@@ -8,11 +8,13 @@ using Microsoft.EntityFrameworkCore;
 using EmployeeManager.Authentication;
 using EmployeeManager.Model;
 using EmployeeManager.DAL;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EmployeeManager.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class LuongsController : Controller
     {
         private readonly DBcontext _context;
@@ -22,7 +24,6 @@ namespace EmployeeManager.Controllers
             _context = context;
         }
 
-        // GEHT: Luongs
         [HttpGet]
         [Route("getall")]
         public IEnumerable<Luong> GetAll()
@@ -33,29 +34,18 @@ namespace EmployeeManager.Controllers
             return data;
         }
 
-        // GET: Luongs/Details/5
         [HttpGet]
         [Route("getdetail/{id}")]
         public Luong Details(int? id)
         {
-            //if (id == null)
-            //{
-            //    return NotFound();
-            //}
-
             var luong = _context.Luong
                 .FirstOrDefault<Luong>(m => m.maLuong == id);
-            //if (luong == null)
-            //{
-            //    return NotFound();
-            //}
 
             return luong;
         }
 
-        // GET: Luongs/Create
         [HttpPost]
-        [Route("postluong")]
+        [Route("create")]
         public void Create([FromBody] Luong luong)
         {
             _context.Set<Luong>().Add(luong);
@@ -70,106 +60,16 @@ namespace EmployeeManager.Controllers
             obj = luong;
             _context.SaveChanges();
         }
-        //[Route("postluong")]
-        // POST: Luongs/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[Route("postluong")]
-        //public async Task<IActionResult> Create([Bind("maLuong,maChamCong,luong,maChucVu,thue")] Luong luong)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        _context.Add(luong);
-        //        await _context.SaveChangesAsync();
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    return View(luong);
-        //}
 
-        //// GET: Luongs/Edit/5
-        //public async Task<IActionResult> Edit(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
+        [HttpPost]
+        [Route("deleteluong")]
+        public int Delete([FromBody] int id)
+        {
+            _context.Set<Luong>().Remove(_context.Luong.FirstOrDefault(x => x.maLuong == id));
 
-        //    var luong = await _context.Luong.FindAsync(id);
-        //    if (luong == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    return View(luong);
-        //}
+            _context.SaveChanges();
 
-        //// POST: Luongs/Edit/5
-        //// To protect from overposting attacks, enable the specific properties you want to bind to.
-        //// For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Edit(int id, [Bind("maLuong,maChamCong,luong,maChucVu,thue")] Luong luong)
-        //{
-        //    if (id != luong.maLuong)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    if (ModelState.IsValid)
-        //    {
-        //        try
-        //        {
-        //            _context.Update(luong);
-        //            await _context.SaveChangesAsync();
-        //        }
-        //        catch (DbUpdateConcurrencyException)
-        //        {
-        //            if (!LuongExists(luong.maLuong))
-        //            {
-        //                return NotFound();
-        //            }
-        //            else
-        //            {
-        //                throw;
-        //            }
-        //        }
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    return View(luong);
-        //}
-
-        //// GET: Luongs/Delete/5
-        //public async Task<IActionResult> Delete(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    var luong = await _context.Luong
-        //        .FirstOrDefaultAsync(m => m.maLuong == id);
-        //    if (luong == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    return View(luong);
-        //}
-
-        //// POST: Luongs/Delete/5
-        //[HttpPost, ActionName("Delete")]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> DeleteConfirmed(int id)
-        //{
-        //    var luong = await _context.Luong.FindAsync(id);
-        //    _context.Luong.Remove(luong);
-        //    await _context.SaveChangesAsync();
-        //    return RedirectToAction(nameof(Index));
-        //}
-
-        //private bool LuongExists(int id)
-        //{
-        //    return _context.Luong.Any(e => e.maLuong == id);
-        //}
+            return id;
+        }
     }
 }
