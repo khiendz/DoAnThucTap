@@ -23,6 +23,10 @@ export const navigation = [
       {
         text: 'Contract',
         path: '/contract'
+      },
+      {
+        text: 'Clockify',
+        path: '/timekeeping'
       }
     ]
   }

@@ -10,6 +10,7 @@ import { EmployeeManagerComponent } from './pages/employee-manager/employee-mana
 import { RoleManagerComponent } from './pages/role-manager/role-manager.component';
 import { DepartmentManagerComponent } from './pages/department-manager/department-manager.component';
 import { ContractComponent } from './pages/contract/contract.component';
+import { TimekeepingComponent } from './pages/timekeeping/timekeeping.component';
 
 
 const routes: Routes = [
@@ -66,6 +67,11 @@ const routes: Routes = [
   {
     path: 'change-password/:recoveryCode',
     component: ChangePasswordFormComponent,
+    canActivate: [ AuthGuardService ]
+  },
+  {
+    path: 'timekeeping',
+    component: TimekeepingComponent,
     canActivate: [ AuthGuardService ]
   },
   {
