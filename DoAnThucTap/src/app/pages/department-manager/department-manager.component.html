@@ -1,0 +1,39 @@
+<h2 class="content-block">Departments</h2>
+<dx-data-grid
+id="gridTemplate"
+      #gridTemplate
+[dataSource]="listDepartment" [remoteOperations]="true" [showBorders]="true"
+    [allowColumnReordering]="true" [hoverStateEnabled]="true" [selectedRowKeys]="[]" (onRowUpdated)="update($event)"
+    (onRowInserted)="add($event)" (onRowRemoved)="removed($event)">
+    <dxo-paging [pageSize]="10"></dxo-paging>
+        <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[10, 20, 30]" [showInfo]="false"> </dxo-pager>
+    <dxo-search-panel [visible]="true" [highlightCaseSensitive]="true"></dxo-search-panel>
+    <dxo-editing mode="row" [allowAdding]="true" [allowUpdating]="true" [allowDeleting]="true">
+    </dxo-editing>
+
+    <dxo-editing mode="popup" [allowUpdating]="true">
+        <dxo-popup title="Thông tin phòng ban" [showTitle]="true" [width]="600" [height]="425">
+        </dxo-popup>
+        <dxo-form>
+            <dxi-item itemType="group" [colCount]="2" [colSpan]="2">
+                <dxi-item dataField="TenPhongBan">
+                    <dxi-validation-rule type="required" message="Field is required">
+                    </dxi-validation-rule>
+                </dxi-item>
+                <dxi-item dataField="MoTa">
+                    <dxi-validation-rule type="required" message="Field is required">
+                    </dxi-validation-rule>
+                </dxi-item>
+            </dxi-item>
+        </dxo-form>
+    </dxo-editing>
+
+    <dxi-column caption="STT" width="60" [cellTemplate]="cellTemplateAutoIncrement">
+    </dxi-column>
+
+    <dxi-column dataField="TenPhongBan" caption="Tên phòng ban">
+    </dxi-column>
+
+    <dxi-column dataField="MoTa" caption="Mô tả">
+    </dxi-column>
+</dx-data-grid>
