@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor } from '@angular/common/http';
 import { Observable } from 'rxjs';
-
+import { BehaviorSubject } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { AuthenticationService } from '../shared/services/authentication.service';
+import { User } from '../../app/model/Account/User.model';
 
 export const rootApi = `${environment.apiUrl}`;
 @Injectable()
@@ -25,10 +26,17 @@ export class JwtInterceptor implements HttpInterceptor {
             });
         }else
         {
+          const token = localStorage.getItem('currentUser')
+          ? JSON.parse(localStorage.getItem('currentUser') || '')
+          : [];
           request = request.clone({
+            setHeaders: {
+              Authorization: `Bearer ${token.token}`
+          },
             url: `${rootApi}${request.url}`
         });
         }
+
 
         return next.handle(request);
     }

@@ -105,6 +105,8 @@ namespace EmployeeManager
 
             app.UseRouting();
             app.UseCors("Allow");
+
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

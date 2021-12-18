@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router, ActivatedRouteSnapshot } from '@angular/router';
+import {  AuthenticationService } from '../services/authentication.service';
 
 export interface IUser {
   email: string;
@@ -24,7 +25,7 @@ export class AuthService {
     this._lastAuthenticatedPath = value;
   }
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, public authen: AuthenticationService) { }
 
   async logIn(email: string, password: string) {
 
@@ -116,10 +117,12 @@ export class AuthService {
     }
   }
 
-  async logOut() {
+  public async logOut() {
     this._user = null;
+    this.authen.logout();
     this.router.navigate(['/login-form']);
   }
+
 }
 
 @Injectable()

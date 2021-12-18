@@ -28,6 +28,6 @@ export class DepartmentService {
   }
   add(Department:PhongBan)
   {
-    return this.http.post(`${this.urlAPI}/ManageDepartment`,Department);
+    return this.http.post(`/ManageDepartment`,Department);
   }
 }
