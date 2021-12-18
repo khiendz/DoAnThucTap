@@ -44,37 +44,37 @@ namespace EmployeeManager.Controllers
             return CreatedAtAction("GetContract", new { id = contract.MaHopDong }, contract);
         }
 
-        [HttpPost]
-        [Route("upload")]
-        public async Task<ActionResult<Chitiethopdong>> UploadDocuments()
-        {
-            string inputPath = Path.Combine(_configuration["AppSetting:BaseFolder"], _configuration["AppSetting:InputTemplateFolder"]);
-            var files = Request.Form.Files;
-            files.ToList().ForEach(t =>
-            {
-                var extension = Path.GetExtension(t.FileName);
+        //[HttpPost]
+        //[Route("upload")]
+        //public async Task<ActionResult<Chitiethopdong>> UploadDocuments()
+        //{
+        //    string inputPath = Path.Combine(_configuration["AppSetting:BaseFolder"], _configuration["AppSetting:InputTemplateFolder"]);
+        //    var files = Request.Form.Files;
+        //    files.ToList().ForEach(t =>
+        //    {
+        //        var extension = Path.GetExtension(t.FileName);
 
-                if (extension.Trim().ToLower() == ".pdf")
-                {
-                    var filePath = Path.Combine(inputPath, t.FileName).RemoveInvalidCharacters();
-                    var fileBytes = new BinaryReader(t.OpenReadStream()).ReadBytes((int)t.Length);
-                    if (System.IO.File.Exists(filePath))
-                    {
-                        System.IO.File.Delete(filePath);
-                    }
-                    System.IO.File.WriteAllBytes(filePath, fileBytes);
-                }
+        //        if (extension.Trim().ToLower() == ".pdf")
+        //        {
+        //            var filePath = Path.Combine(inputPath, t.FileName).RemoveInvalidCharacters();
+        //            var fileBytes = new BinaryReader(t.OpenReadStream()).ReadBytes((int)t.Length);
+        //            if (System.IO.File.Exists(filePath))
+        //            {
+        //                System.IO.File.Delete(filePath);
+        //            }
+        //            System.IO.File.WriteAllBytes(filePath, fileBytes);
+        //        }
 
-                Chitiethopdong dc = new Chitiethopdong();
-                dc.MaChiTietHopDong = Guid.NewGuid().ToString();
-                dc.Name = t.FileName;
-                dc.Path = Helper.MeasureSizeOfFile(t.Length);
-                dc.Path = Path.Combine(inputPath, t.FileName);
-                _context.Chitiethopdong.Add(dc);
-                await _context.SaveChangesAsync();
-                return CreatedAtAction("GetContact", new { id = dc.MaChiTietHopDong }, dc);
-            });
-        }
+        //        Chitiethopdong dc = new Chitiethopdong();
+        //        dc.MaChiTietHopDong = Guid.NewGuid().ToString();
+        //        dc.Name = t.FileName;
+        //        dc.Path = Helper.MeasureSizeOfFile(t.Length);
+        //        dc.Path = Path.Combine(inputPath, t.FileName);
+        //        _context.Chitiethopdong.Add(dc);
+        //        await _context.SaveChangesAsync();
+        //        return CreatedAtAction("GetContact", new { id = dc.MaChiTietHopDong }, dc);
+        //    });
+        //}
         [HttpPost]
         [Route("delete")]
         public async Task<Models.ApiResponse<bool>> DeleteDocument([FromBody] Chitiethopdong doc)

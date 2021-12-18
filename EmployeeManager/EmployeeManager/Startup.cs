@@ -1,5 +1,6 @@
 using EmployeeManager.Authentication;
 using EmployeeManager.DAL;
+using EmployeeManager.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -50,6 +51,7 @@ namespace EmployeeManager
             // For Entity Framework  
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ConnStr")));
             services.AddDbContext<DBcontext>(options => options.UseSqlServer(Configuration.GetConnectionString("ConnStr")));
+            services.AddDbContext<QUANLYNHANVIENContext>(options => options.UseSqlServer(Configuration.GetConnectionString("QuanLyNhanVien")));
 
             // For Identity  
             services.AddIdentity<ApplicationUser, IdentityRole>()
