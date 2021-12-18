@@ -1,12 +1,10 @@
-<p>timekeeping works!</p>
 <dx-scheduler
-  timeZone="America/Los_Angeles"
-  [dataSource]="appointmentsData"
-  [views]="['week', 'month']"
-  currentView="week"
-  [currentDate]="currentDate"
-  [startDayHour]="9"
-  [height]="600"
+timeZone="America/Los_Angeles"
+[dataSource]="appointmentsData"
+[views]="['day', 'week', 'workWeek', 'month']"
+currentView="day"
+[currentDate]="currentDate"
+[startDayHour]="9"
+[height]="600"
 >
 </dx-scheduler>
-<dx-button (onClick)="getLuong()"></dx-button>

@@ -12,7 +12,6 @@ import { RoleManagerComponent } from './pages/role-manager/role-manager.componen
 import { DepartmentManagerComponent } from './pages/department-manager/department-manager.component';
 import { ContractComponent } from './pages/contract/contract.component';
 import { TimekeepingComponent } from './pages/timekeeping/timekeeping.component';
-import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 
 
 const routes: Routes = [

@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
 import { DxButtonComponent, DxButtonModule, DxSchedulerModule } from 'devextreme-angular';
-import { Appointment, Service } from '../timekeeping/timekeeping.service';
+import { Appointment,Service } from '../timekeeping/timekeeping.service';
 import { LuongService } from '../../shared/services/managerLuong.service';
 
 if (!/localhost/.test(document.location.host)) {
@@ -19,24 +19,23 @@ export class TimekeepingComponent implements OnInit {
 
   appointmentsData: Appointment[];
 
-  currentDate: Date = new Date(2021, 2, 28);
+  currentDate: Date = new Date(2021, 3, 29);
 
-  constructor(service: Service, public luongService: LuongService) {
+  constructor(service: Service) {
     this.appointmentsData = service.getAppointments();
-
   }
 
   ngOnInit(): void {
   }
 
-  getLuong()
-  {
-    this.luongService.getAllLuong().subscribe(
-      (res: any) => {
-        console.log(res);
-      }
-    );
-  }
+  // getLuong()
+  // {
+  //   this.luongService.getAllLuong().subscribe(
+  //     (res: any) => {
+  //       console.log(res);
+  //     }
+  //   );
+  // }
 
 }
 
