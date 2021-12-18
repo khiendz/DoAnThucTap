@@ -1,0 +1,60 @@
+<div class="x_panel">
+  <h2 class="content-block">Contract</h2>
+
+    <div class="mt-3 float-left">
+
+      <dx-button
+        id="inputButton"
+        icon="parentfolder"
+        style="z-index: 1; position: absolute; right: 270px"
+        hint="Upload"
+        type="default"
+        (onClick)="importFile.click()"
+      >
+      </dx-button>
+      <input
+
+        type="file"
+        accept=".pdf"
+        hidden
+        #importFile
+        (change)="importDocuments($event)"
+        onclick="this.value=null;"
+        multiple
+      />
+      <dx-data-grid
+        id="gridTemplate"
+        #gridTemplate
+        [dataSource]="listContract"
+        [allowColumnResizing]="true"
+
+        noDataText="No data"
+      >
+        <dxo-search-panel [visible]="true" [width]="240" placeholder="Search"> </dxo-search-panel>
+        <dxo-paging [pageSize]="10"></dxo-paging>
+        <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[10, 20, 30]" [showInfo]="false"> </dxo-pager>
+        <dxi-column alignment="center" dataField="Id" caption="Id" >
+        </dxi-column>
+        <dxi-column dataField="Name" alignment="center" caption="Name"></dxi-column>
+        <dxi-column dataField="Size" alignment="center" caption="Size" width="auto"></dxi-column>
+        <dxi-column dataField="Path" alignment="center" caption="Path" width="auto"></dxi-column>
+
+        <dxi-column
+          alignment="center"
+          minWidth="90"
+          width="auto"
+          cellTemplate="cellTemplate"
+          caption="Action"
+        >
+        </dxi-column>
+        <div *dxTemplate="let item of 'cellTemplate'">
+          <dx-button hint="Delete" style="margin-right: 5px" type="danger" (onClick)="delete(item)" icon ="trash">
+
+          </dx-button>
+          <dx-button hint="Download" type="default" (onClick)="download(item)" icon="download">
+
+          </dx-button>
+        </div>
+      </dx-data-grid>
+    </div>
+  </div>

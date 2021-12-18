@@ -1,0 +1,104 @@
+<h2 class="content-block">Employees</h2>
+<div>
+    <dx-data-grid
+    id="gridTemplate"
+      #gridTemplate
+    [dataSource]="listEmployee" [remoteOperations]="true" [height]="600" [showBorders]="true"
+        [allowColumnReordering]="true" [hoverStateEnabled]="true" [selectedRowKeys]="[]" (onRowUpdated)="update($event)"
+        (onRowInserted)="add($event)" (onRowRemoved)="removed($event)">
+        <dxo-paging [pageSize]="10"></dxo-paging>
+        <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[10, 20, 30]" [showInfo]="false"> </dxo-pager>
+        <dxo-search-panel [visible]="true" [highlightCaseSensitive]="true"></dxo-search-panel>
+        <dxo-editing mode="row" [allowAdding]="true" [allowUpdating]="true" [allowDeleting]="true">
+        </dxo-editing>
+
+        <dxo-editing mode="popup" [allowUpdating]="true">
+            <dxo-popup title="Thông tin nhân viên" [showTitle]="true" [width]="1000" [height]="670">
+            </dxo-popup>
+            <dxo-form>
+                <dxi-item itemType="group" [colCount]="2" [colSpan]="2">
+
+                    <dxi-item dataField="TenNhanVien">
+                        <dxi-validation-rule type="required" message="Field is required">
+                        </dxi-validation-rule>
+                    </dxi-item>
+                    <dxi-item dataField="NgaySinh" [label]="{ text: 'Ngày Sinh' }" editorType="dxDateBox"
+                        [editorOptions]="{
+
+                        min: '1/1/1000',
+                        width: '100%',
+                        type: 'date',
+                        displayFormat: 'dd/MM/yyyy',
+                        invalidDateMessage: 'Date of birth must be datetime format.',
+                        dateOutOfRangeMessage: 'Date of birth must be datetime format.'
+                        }">
+                        <dxi-validation-rule type="required" message="Field is required">
+                        </dxi-validation-rule>
+                    </dxi-item>
+                    <dxi-item dataField="GioiTinh" editorType="dxSelectBox" [editorOptions]="{
+                        dataSource: sexDataSource,
+                        displayExpr: 'caption',
+                        valueExpr: 'value'
+                        }">
+                        <dxi-validation-rule type="required" message="Field is required">
+                        </dxi-validation-rule>
+                    </dxi-item>
+                    <dxi-item dataField="SoDienThoai">
+                        <dxi-validation-rule type="required" message="Field is required">
+
+                        </dxi-validation-rule>
+                        <dxi-validation-rule type="pattern" [pattern]="phonePattern"
+                            message="Please input correct phonenumber format"></dxi-validation-rule>
+                    </dxi-item>
+                    <dxi-item dataField="DiaChi">
+                        <dxi-validation-rule type="required" message="Field is required">
+                        </dxi-validation-rule>
+                    </dxi-item>
+                    <dxi-item dataField="Email">
+                        <dxi-validation-rule type="required" message="Email is required">
+                        </dxi-validation-rule>
+                        <dxi-validation-rule type="email" message="Please input email format">
+                        </dxi-validation-rule>
+                    </dxi-item>
+                    <dxi-item dataField="MaChucVu">
+                        <dxi-validation-rule type="required" message="Field is required">
+                        </dxi-validation-rule>
+                    </dxi-item>
+                    <dxi-item dataField="MaPhongBan">
+                        <dxi-validation-rule type="required" message="Field is required">
+                        </dxi-validation-rule>
+                    </dxi-item>
+                </dxi-item>
+            </dxo-form>
+        </dxo-editing>
+        <dxi-column alignment="right" caption="STT" width="60" [cellTemplate]="cellTemplateAutoIncrement">
+        </dxi-column>
+
+        <dxi-column dataField="TenNhanVien" alignment="center" caption="Tên nhân viên">
+        </dxi-column>
+
+        <dxi-column dataField="NgaySinh" alignment="center" dataType="date" format="dd/MM/yyyy" caption="Ngày sinh">
+        </dxi-column>
+
+        <dxi-column dataField="GioiTinh" alignment="center" caption="Giới tính">
+            <dxo-lookup [dataSource]="sexDataSource" valueExpr="value" displayExpr="caption"> </dxo-lookup>
+        </dxi-column>
+
+        <dxi-column dataField="SoDienThoai" alignment="center" caption="Số điện thoại">
+        </dxi-column>
+
+        <dxi-column dataField="DiaChi" alignment="center" caption="Địa chỉ">
+        </dxi-column>
+
+        <dxi-column dataField="Email" alignment="center" caption="Email">
+        </dxi-column>
+
+        <dxi-column dataField="MaChucVu" alignment="center" caption="Chức vụ">
+            <dxo-lookup [dataSource]="listRole" valueExpr="MaChucVu" displayExpr="TenChucVu"> </dxo-lookup>
+        </dxi-column>
+
+        <dxi-column dataField="MaPhongBan" caption="Phòng ban">
+            <dxo-lookup [dataSource]="listDepartment" valueExpr="MaPhongBan" displayExpr="TenPhongBan"> </dxo-lookup>
+        </dxi-column>
+    </dx-data-grid>
+</div>

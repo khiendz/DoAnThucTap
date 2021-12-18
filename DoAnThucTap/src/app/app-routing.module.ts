@@ -7,6 +7,11 @@ import { ProfileComponent } from './pages/profile/profile.component';
 import { TasksComponent } from './pages/tasks/tasks.component';
 import { DxDataGridModule, DxFormModule } from 'devextreme-angular';
 import { TimekeepingComponent } from './pages/timekeeping/timekeeping.component';
+import { EmployeeManagerComponent } from './pages/employee-manager/employee-manager.component';
+import { RoleManagerComponent } from './pages/role-manager/role-manager.component';
+import { DepartmentManagerComponent } from './pages/department-manager/department-manager.component';
+import { ContractComponent } from './pages/contract/contract.component';
+
 
 const routes: Routes = [
   {
@@ -22,6 +27,26 @@ const routes: Routes = [
   {
     path: 'home',
     component: HomeComponent,
+    canActivate: [ AuthGuardService ]
+  },
+  {
+    path: 'employee',
+    component: EmployeeManagerComponent,
+    canActivate: [ AuthGuardService ]
+  },
+  {
+    path: 'contract',
+    component: ContractComponent,
+    canActivate: [ AuthGuardService ]
+  },
+  {
+    path: 'role',
+    component: RoleManagerComponent,
+    canActivate: [ AuthGuardService ]
+  },
+  {
+    path: 'department',
+    component: DepartmentManagerComponent,
     canActivate: [ AuthGuardService ]
   },
   {
@@ -59,6 +84,6 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes, { useHash: true }), DxDataGridModule, DxFormModule],
   providers: [AuthGuardService],
   exports: [RouterModule],
-  declarations: [HomeComponent, ProfileComponent, TasksComponent]
+  declarations: [HomeComponent, ProfileComponent, TasksComponent, EmployeeManagerComponent, RoleManagerComponent]
 })
 export class AppRoutingModule { }
