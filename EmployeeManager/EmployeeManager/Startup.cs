@@ -19,6 +19,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Microsoft.OpenApi.Models;
 
 namespace EmployeeManager
 {
@@ -29,7 +30,7 @@ namespace EmployeeManager
             Configuration = configuration;
         }
 
-        public IConfiguration Configuration { get; }
+        public IConfiguration Configuration;
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -48,11 +49,16 @@ namespace EmployeeManager
                });
             });
 
+            var connectionString = Configuration.GetConnectionString("Employee");
             // For Entity Framework  
-            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ConnStr")));
-            services.AddDbContext<DBcontext>(options => options.UseSqlServer(Configuration.GetConnectionString("ConnStr")));
+            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Conn")));
+            services.AddDbContext<DBcontext>(options => options.UseSqlServer(Configuration.GetConnectionString("Conn")));
             services.AddDbContext<QUANLYNHANVIENContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Employee")));
 
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Administrator Api", Version = "v1" });
+                });
             // For Identity  
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
@@ -104,6 +110,16 @@ namespace EmployeeManager
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+            });
+
+            app.UseSwagger(options =>
+            {
+                options.SerializeAsV2 = true;
+            });
+
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json","v1");
             });
         }
     }

@@ -1,5 +1,6 @@
 ﻿using EmployeeManager.Models;
 using GenFu;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -11,6 +12,7 @@ namespace EmployeeManager.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ManageEmployeeController : ControllerBase
     {
         private readonly QUANLYNHANVIENContext _context;

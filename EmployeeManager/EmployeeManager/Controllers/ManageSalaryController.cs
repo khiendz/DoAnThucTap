@@ -12,42 +12,42 @@ namespace EmployeeManager.Controllers
     [Route("api/[controller]")]
     [ApiController]
     [Authorize]
-    public class ManageDepartmentController : ControllerBase
+    public class ManageSalaryController : ControllerBase
     {
         private readonly QUANLYNHANVIENContext _context;
 
-        public ManageDepartmentController(QUANLYNHANVIENContext context)
+        public ManageSalaryController(QUANLYNHANVIENContext context)
         {
             _context = context;
         }
 
         [HttpGet]
         [Route("get-department")]
-        public IEnumerable<Phongban> Get()
+        public IEnumerable<Luong> Get()
         {
-            return _context.Phongban.ToList();
+            return _context.Luong.ToList();
         }
 
 
         // GET: api/Employees/5
         [HttpGet("get-detail-department/{id}")]
-        public async Task<ActionResult<Phongban>> GetDepartment(string id)
+        public async Task<ActionResult<Luong>> GetDepartment(string id)
         {
-            var department = _context.Phongban.Where(em => em.MaPhongBan == id)
+            var responseLuong = _context.Luong.Where(em => em.MaLuong == id)
                                               .FirstOrDefault();
 
-            if (department == null)
+            if (responseLuong == null)
             {
                 return NotFound();
             }
 
-            return department;
+            return responseLuong;
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutDepartment(string id, Phongban department)
+        public async Task<IActionResult> PutDepartment(string id, Luong department)
         {
-            if (id != department.MaPhongBan)
+            if (id != department.MaLuong)
             {
                 return BadRequest();
             }
@@ -74,25 +74,25 @@ namespace EmployeeManager.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Phongban>> PostDepartment(Phongban department)
+        public async Task<ActionResult<Luong>> PostDepartment(Luong department)
         {
-            department.MaPhongBan = Guid.NewGuid().ToString();
-            _context.Phongban.Add(department);
+            department.MaLuong = Guid.NewGuid().ToString();
+            _context.Luong.Add(department);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetDepartment", new { id = department.MaPhongBan }, department);
+            return CreatedAtAction("GetDepartment", new { id = department.MaLuong }, department);
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Phongban>> DeleteDepartment(string id)
+        public async Task<ActionResult<Luong>> DeleteDepartment(string id)
         {
-            var department = await _context.Phongban.FindAsync(id);
+            var department = await _context.Luong.FindAsync(id);
             if (department == null)
             {
                 return NotFound();
             }
 
-            _context.Phongban.Remove(department);
+            _context.Luong.Remove(department);
             await _context.SaveChangesAsync();
 
             return department;
@@ -100,7 +100,7 @@ namespace EmployeeManager.Controllers
 
         private bool DepartmentExists(string id)
         {
-            return _context.Phongban.Any(e => e.MaPhongBan == id);
+            return _context.Luong.Any(e => e.MaLuong == id);
         }
     }
 }

@@ -8,26 +8,26 @@ import { Observable } from 'rxjs';
 export class RoleService {
 
   constructor(public http:HttpClient) { }
-  readonly urlAPI ="http://localhost:38312/api";
+  readonly urlAPI ="https://localhost:44344/api";
   Role:Chucvu= new Chucvu('','','',0);
 
 
   getList():Observable<Chucvu[]>
   {
-    return this.http.get<Chucvu[]>(`${this.urlAPI}/ManageRole/get-role`);
+    return this.http.get<Chucvu[]>(`/ManageRole/get-role`);
   }
 
   remove(id:any)
   {
-    return this.http.delete(`${this.urlAPI}/ManageRole/${id}`)
+    return this.http.delete(`/ManageRole/${id}`)
   }
 
   update(id:any, Role:Chucvu)
   {
-    return this.http.put(`${this.urlAPI}/ManageRole/${id}`,Role);
+    return this.http.put(`/ManageRole/${id}`,Role);
   }
   add(Role:Chucvu)
   {
-    return this.http.post(`${this.urlAPI}/ManageRole`,Role);
+    return this.http.post(`/ManageRole`,Role);
   }
 }

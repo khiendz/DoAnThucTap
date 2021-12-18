@@ -6,34 +6,33 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
 namespace EmployeeManager.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     [Authorize]
-    public class ManageDepartmentController : ControllerBase
+    public class ManageClockifyController : ControllerBase
     {
         private readonly QUANLYNHANVIENContext _context;
 
-        public ManageDepartmentController(QUANLYNHANVIENContext context)
+        public ManageClockifyController(QUANLYNHANVIENContext context)
         {
             _context = context;
         }
 
         [HttpGet]
         [Route("get-department")]
-        public IEnumerable<Phongban> Get()
+        public IEnumerable<Chamcong> Get()
         {
-            return _context.Phongban.ToList();
+            return _context.Chamcong.ToList();
         }
 
 
         // GET: api/Employees/5
         [HttpGet("get-detail-department/{id}")]
-        public async Task<ActionResult<Phongban>> GetDepartment(string id)
+        public async Task<ActionResult<Chamcong>> GetDepartment(string id)
         {
-            var department = _context.Phongban.Where(em => em.MaPhongBan == id)
+            var department = _context.Chamcong.Where(em => em.MaChamCong == id)
                                               .FirstOrDefault();
 
             if (department == null)
@@ -45,9 +44,9 @@ namespace EmployeeManager.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutDepartment(string id, Phongban department)
+        public async Task<IActionResult> PutDepartment(string id, Chamcong department)
         {
-            if (id != department.MaPhongBan)
+            if (id != department.MaChamCong)
             {
                 return BadRequest();
             }
@@ -74,25 +73,25 @@ namespace EmployeeManager.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Phongban>> PostDepartment(Phongban department)
+        public async Task<ActionResult<Chamcong>> PostDepartment(Chamcong department)
         {
-            department.MaPhongBan = Guid.NewGuid().ToString();
-            _context.Phongban.Add(department);
+            department.MaChamCong = Guid.NewGuid().ToString();
+            _context.Chamcong.Add(department);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetDepartment", new { id = department.MaPhongBan }, department);
+            return CreatedAtAction("GetDepartment", new { id = department.MaChamCong }, department);
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Phongban>> DeleteDepartment(string id)
+        public async Task<ActionResult<Chamcong>> DeleteDepartment(string id)
         {
-            var department = await _context.Phongban.FindAsync(id);
+            var department = await _context.Chamcong.FindAsync(id);
             if (department == null)
             {
                 return NotFound();
             }
 
-            _context.Phongban.Remove(department);
+            _context.Chamcong.Remove(department);
             await _context.SaveChangesAsync();
 
             return department;
@@ -100,7 +99,7 @@ namespace EmployeeManager.Controllers
 
         private bool DepartmentExists(string id)
         {
-            return _context.Phongban.Any(e => e.MaPhongBan == id);
+            return _context.Chamcong.Any(e => e.MaChamCong == id);
         }
     }
 }

@@ -10,11 +10,13 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Http;
 using EmployeeManager.Common;
 using EmployeeManager.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EmployeeManager.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ManagerContractController : ControllerBase
     {
         private readonly IConfiguration _configuration;

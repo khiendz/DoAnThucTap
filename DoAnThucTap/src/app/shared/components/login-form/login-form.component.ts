@@ -34,7 +34,6 @@ export class LoginFormComponent {
     this.loading = true;
 
     this.loading = true;
-    debugger;
     var check;
     try
     {

@@ -1,4 +1,5 @@
 ﻿using EmployeeManager.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -10,6 +11,7 @@ namespace EmployeeManager.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ManageRoleController : ControllerBase
     {
         private readonly QUANLYNHANVIENContext _context;

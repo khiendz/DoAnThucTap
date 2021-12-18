@@ -8,27 +8,27 @@ import { Observable } from 'rxjs';
 export class CommondService {
 
   constructor(public http:HttpClient) { }
-  readonly urlAPI ="http://localhost:38312/api";
+  readonly urlAPI ="http://localhost:44344/api";
   Employee:Nhanvien= new Nhanvien('','',new Date(),1,'','','','','');
 
 
   getListEmployee():Observable<Nhanvien[]>
   {
-    return this.http.get<Nhanvien[]>(`${this.urlAPI}/manageemployee/get-employee`);
+    return this.http.get<Nhanvien[]>(`/manageemployee/get-employee`);
   }
 
   removed(id:any)
   {
-    return this.http.delete(`${this.urlAPI}/ManageEmployee/${id}`)
+    return this.http.delete(`/ManageEmployee/${id}`)
   }
 
   update(id:any, Employee:Nhanvien)
   {
-    return this.http.put(`${this.urlAPI}/ManageEmployee/${id}`,Employee);
+    return this.http.put(`/ManageEmployee/${id}`,Employee);
   }
   add(Employee:Nhanvien)
   {
     debugger;
-    return this.http.post(`${this.urlAPI}/ManageEmployee`,Employee);
+    return this.http.post(`/ManageEmployee`,Employee);
   }
 }

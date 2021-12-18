@@ -9,39 +9,39 @@ import { HopDong } from '../model/HopDong.model';
 export class ContractService {
 
   constructor(public http:HttpClient) { }
-  readonly urlAPI ="http://localhost:38312/api";
+  readonly urlAPI ="http://localhost:44344/api";
   Role:HopDong= new HopDong('','','','');
 
 
   getList():Observable<HopDong[]>
   {
-    return this.http.get<HopDong[]>(`${this.urlAPI}/ManagerContract/get`);
+    return this.http.get<HopDong[]>(`/ManagerContract/get`);
   }
 
   upload():string
   {
-    return `this.${this.urlAPI}/ManagerContract/upload`;
+    return `/ManagerContract/upload`;
   }
   add(contract:HopDong)
   {
     debugger;
-    return this.http.post(`${this.urlAPI}/ManageContract`,contract);
+    return this.http.post(`/ManageContract`,contract);
   }
   download():string
   {
-    return `this.${this.urlAPI}/ManagerContract/download`;
+    return `/ManagerContract/download`;
   }
   update(id:any, contract:HopDong)
   {
-    return this.http.put(`${this.urlAPI}/ManageContract/${id}`,contract);
+    return this.http.put(`/ManageContract/${id}`,contract);
   }
   delete():string
   {
-      return `this.${this.urlAPI}/ManagerContract/delete`;
+      return `/ManagerContract/delete`;
   }
   remove(id:any)
   {
-    return this.http.delete(`${this.urlAPI}/ManagerContract/${id}`)
+    return this.http.delete(`/ManagerContract/${id}`)
   }
 
 }

@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { AuthenticationService } from '../shared/services/authentication.service';
 
+export const rootApi = `${environment.apiUrl}`;
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
     constructor(private authenticationService: AuthenticationService) { }
@@ -14,12 +15,19 @@ export class JwtInterceptor implements HttpInterceptor {
         const currentUser = this.authenticationService.currentUserValue;
         const isLoggedIn = currentUser && currentUser.token;
         const isApiUrl = request.url.startsWith(environment.apiUrl);
+
         if (isLoggedIn && isApiUrl) {
             request = request.clone({
                 setHeaders: {
                     Authorization: `Bearer ${currentUser.token}`
-                }
+                },
+                url: `${rootApi}${request.url}`
             });
+        }else
+        {
+          request = request.clone({
+            url: `${rootApi}${request.url}`
+        });
         }
 
         return next.handle(request);

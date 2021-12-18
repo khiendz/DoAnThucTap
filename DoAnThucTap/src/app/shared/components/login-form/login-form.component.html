@@ -32,14 +32,14 @@
       <dxo-button-options text="Create an account" width="100%" [onClick]="onCreateAccountClick"></dxo-button-options>
     </dxi-item>
 
-    <ng-container *dxTemplate="let item of 'signInTemplate'">
+    <!-- <ng-container *dxTemplate="let item of 'signInTemplate'">
       <span class="dx-button-text">
         <ng-container *ngIf="loading; else notLoading">
           <dx-load-indicator width="24px" height="24px" [visible]="true"></dx-load-indicator>
         </ng-container>
         <ng-template #notLoading>Sign In</ng-template>
       </span>
-    </ng-container>
+    </ng-container> -->
 
   </dx-form>
 </form>
