@@ -13,7 +13,7 @@ namespace EmployeeManager.Models
     public partial class Chamcong
     {
         [Key]
-        public string MaChamCong { get; set; }
+        public string? MaChamCong { get; set; }
         public DateTime NgayChamCong { get; set; }
         public string TenCongViec { get; set; }
         public DateTime GioBatDau { get; set; }
@@ -21,7 +21,7 @@ namespace EmployeeManager.Models
         public string MaNhanVien { get; set; }
         public string MaLuong { get; set; }
 
-        public virtual Luong MaLuongNavigation { get; set; }
-        public virtual Nhanvien MaNhanVienNavigation { get; set; }
+        public virtual Luong? MaLuongNavigation { get; set; }
+        public virtual Nhanvien? MaNhanVienNavigation { get; set; }
     }
 }

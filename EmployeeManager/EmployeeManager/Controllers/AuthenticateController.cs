@@ -1,4 +1,5 @@
 ﻿using EmployeeManager.Authentication;
+using EmployeeManager.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -20,12 +21,14 @@ namespace EmployeeManager.Controllers
         private readonly UserManager<ApplicationUser> userManager;
         private readonly RoleManager<IdentityRole> roleManager;
         private readonly IConfiguration _configuration;
+        private readonly QUANLYNHANVIENContext _context;
 
-        public AuthenticateController(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, IConfiguration configuration)
+        public AuthenticateController(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, IConfiguration configuration, QUANLYNHANVIENContext context)
         {
             this.userManager = userManager;
             this.roleManager = roleManager;
             _configuration = configuration;
+            _context = context;
         }
 
         [HttpPost]
@@ -61,7 +64,7 @@ namespace EmployeeManager.Controllers
                 return Ok(new
                 {
                     token = new JwtSecurityTokenHandler().WriteToken(token),
-                    expiration = token.ValidTo
+                    expiration = token.ValidTo,
                 });
             }
             return Unauthorized();

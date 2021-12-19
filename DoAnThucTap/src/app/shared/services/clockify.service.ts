@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class SalartService {
+export class ClockifyService {
 
   constructor(public http:HttpClient) { }
   readonly urlAPI ="http://localhost:44344/api";
@@ -15,6 +15,11 @@ export class SalartService {
   getList():Observable<ChamCong[]>
   {
     return this.http.get<ChamCong[]>(`/ManageClockify/get-department`);
+  }
+
+  getChamCongById(id:string):Observable<ChamCong>
+  {
+    return this.http.get<ChamCong>(`/ManageClockify/get-detail-department/${id}`);
   }
 
   remove(id:any)

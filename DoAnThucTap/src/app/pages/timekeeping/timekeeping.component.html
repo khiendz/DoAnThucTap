@@ -1,10 +1,11 @@
 <dx-scheduler
-timeZone="America/Los_Angeles"
+timeZone="Asia/Ho_Chi_Minh"
 [dataSource]="appointmentsData"
 [views]="['day', 'week', 'workWeek', 'month']"
-currentView="day"
+currentView="week"
 [currentDate]="currentDate"
 [startDayHour]="9"
 [height]="600"
+(onAppointmentAdded)="add($event)"
 >
 </dx-scheduler>

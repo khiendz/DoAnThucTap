@@ -17,6 +17,11 @@ export class SalartService {
     return this.http.get<Luong[]>(`/ManageSalary/get-department`);
   }
 
+  getLuongById(id:string):Observable<Luong>
+  {
+    return this.http.get<Luong>(`/ManageSalary/get-detail-department/${id}`);
+  }
+
   remove(id:any)
   {
     return this.http.delete(`ManageSalary/${id}`)

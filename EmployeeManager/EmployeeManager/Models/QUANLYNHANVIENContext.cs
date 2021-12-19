@@ -58,7 +58,7 @@ namespace EmployeeManager.Models
                     .IsRequired()
                     .HasMaxLength(50);
 
-                entity.Property(e => e.NgayChamCong).HasColumnType("date");
+                entity.Property(e => e.NgayChamCong).HasColumnType("datetime");
 
                 entity.Property(e => e.TenCongViec).IsRequired();
 

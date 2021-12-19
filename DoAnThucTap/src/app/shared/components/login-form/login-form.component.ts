@@ -9,6 +9,7 @@ import { first, map } from 'rxjs/operators';
 import { User } from 'src/app/model/Account';
 import { AuthService } from '../../services';
 import { AuthenticationService } from '../../services/authentication.service';
+import { ManageUser } from '../../services/manageUser.service';
 
 @Component({
   selector: 'app-login-form',
@@ -24,11 +25,14 @@ export class LoginFormComponent {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private authentication: AuthenticationService
+    private authentication: AuthenticationService,
+    public manageUser: ManageUser
   ) {}
 
   async onSubmit(e: Event) {
     debugger;
+
+
     e.preventDefault();
     const { username, password } = this.formData;
     this.loading = true;
@@ -59,6 +63,14 @@ export class LoginFormComponent {
       this.loading = false;
       notify("Authentication failed")
     }
+
+    debugger
+    this.manageUser.getUserByUserName(username).subscribe(
+      res => {
+        localStorage.setItem('accountUser', JSON.stringify(res));
+        console.log(res);
+      }
+    );
   }
 
   onCreateAccountClick = () => {

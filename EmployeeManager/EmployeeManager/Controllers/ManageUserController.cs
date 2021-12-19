@@ -6,40 +6,33 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+
 namespace EmployeeManager.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ManageClockifyController : ControllerBase
+    public class ManageUserController : ControllerBase
     {
         private readonly QUANLYNHANVIENContext _context;
 
-        public ManageClockifyController(QUANLYNHANVIENContext context)
+        public ManageUserController(QUANLYNHANVIENContext context)
         {
             _context = context;
         }
 
         [HttpGet]
         [Route("get-department")]
-        public IEnumerable<Chamcong> Get()
+        public IEnumerable<Taikhoan> Get()
         {
-            var listClockify = _context.Chamcong.ToList();
-            return listClockify;
+            return _context.Taikhoan.ToList();
         }
-
 
         // GET: api/Employees/5
         [HttpGet("get-detail-department/{id}")]
-        public async Task<ActionResult<Chamcong>> GetDepartment(string id)
+        public Taikhoan GetDepartment(string id)
         {
-            var department = _context.Chamcong.Where(em => em.MaNhanVien == id)
+            var department = _context.Taikhoan.Where(em => em.UserName == id)
                                               .FirstOrDefault();
-
-            if (department == null)
-            {
-                return NotFound();
-            }
-
             return department;
         }
 
@@ -73,29 +66,11 @@ namespace EmployeeManager.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Chamcong>> PostDepartment([FromBody] Chamcong department)
+        public async Task<ActionResult<Chamcong>> PostDepartment(Chamcong department)
         {
             department.MaChamCong = Guid.NewGuid().ToString();
-            Chamcong chamCong = new Chamcong();
-            chamCong.MaChamCong = department.MaChamCong;
-            chamCong.MaLuong = department.MaLuong;
-            chamCong.GioBatDau = department.GioBatDau.Date; 
-            chamCong.GioKetThuc = department.GioKetThuc.Date;
-            chamCong.MaNhanVien = department.MaNhanVien;
-            chamCong.TenCongViec = department.TenCongViec;
-            chamCong.NgayChamCong = department.NgayChamCong.Date;
-            //chamCong.MaNhanVienNavigation = department.MaNhanVienNavigation;
-            //chamCong.MaLuongNavigation = department.MaLuongNavigation;
-            _context.Chamcong.Add(chamCong);
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.ToString());
-            }
+            _context.Chamcong.Add(department);
+            await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetDepartment", new { id = department.MaChamCong }, department);
         }

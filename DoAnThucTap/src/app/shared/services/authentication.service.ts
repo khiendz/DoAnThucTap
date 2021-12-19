@@ -5,6 +5,7 @@ import { map } from 'rxjs/operators';
 
 import { environment } from '../../../environments/environment';
 import { User } from '../../model/Account';
+import { TaiKhoan } from '../model/TaiKhoan.model';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
@@ -33,6 +34,7 @@ export class AuthenticationService {
     logout() {
         // remove user from local storage to log user out
         localStorage.removeItem('currentUser');
+        localStorage.removeItem('accountUser');
         this.currentUserSubject.next(new User());
     }
 }

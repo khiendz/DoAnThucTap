@@ -33,7 +33,9 @@ namespace EmployeeManager.Controllers
         [HttpGet("get-detail-department/{id}")]
         public async Task<ActionResult<Luong>> GetDepartment(string id)
         {
-            var responseLuong = _context.Luong.Where(em => em.MaLuong == id)
+            Nhanvien employee = _context.Nhanvien.FirstOrDefault(x => x.MaNhanVien == id);
+            Chucvu chucVu = _context.Chucvu.FirstOrDefault(x => x.MaChucVu == employee.MaChucVu);
+            var responseLuong = _context.Luong.Where(em => em.MaChucVu == chucVu.MaChucVu)
                                               .FirstOrDefault();
 
             if (responseLuong == null)
