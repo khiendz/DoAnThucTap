@@ -24,18 +24,18 @@ const user = localStorage.getItem('accountUser')
 })
 export class TimekeepingComponent implements OnInit {
 
-  @ViewChild(DxSchedulerComponent, { static: false })
+  // @ViewChild(DxSchedulerComponent, { static: false })
   scheduler!: DxSchedulerComponent;
   appointmentsData: Appointment[];
   maNhanVien: string = '';
-  currentDate: Date = new Date();
+  currentDate: Date = new Date(2021, 2, 28);
   _luong: Luong = new Luong('',0,'',0);
   _chamCong: ChamCong = new ChamCong('',new Date(),'',new Date(),new Date(),'','',new Luong('',0,'',0), new Nhanvien('','',new Date(),0,'','','','',''));
   listLuong: ChamCong[] = [];
 
   constructor(service: Service, public salartService: SalartService,public manageUser: ManageUser, public clockify: ClockifyService) {
     this.appointmentsData = service.getAppointments();
-    var apiData: Appointment = new Appointment();
+    // var apiData: Appointment = new Appointment();
 
     // this.clockify.getList().subscribe(
     //   res =>
@@ -53,15 +53,15 @@ export class TimekeepingComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const user = localStorage.getItem('accountUser')
-    ? JSON.parse(localStorage.getItem('accountUser') || '')
-    : [];
-    this.salartService.getLuongById(user.MaNhanVien).subscribe(
-      res =>
-      {
-        this._luong = res;
-      }
-    );
+    // const user = localStorage.getItem('accountUser')
+    // ? JSON.parse(localStorage.getItem('accountUser') || '')
+    // : [];
+    // this.salartService.getLuongById(user.MaNhanVien).subscribe(
+    //   res =>
+    //   {
+    //     this._luong = res;
+    //   }
+    // );
   }
 
   add(e:any)
@@ -69,7 +69,7 @@ export class TimekeepingComponent implements OnInit {
     debugger
     let chamCong: ChamCong = this._chamCong;
     chamCong.MaChamCong = '';
-    chamCong.NgayChamCong = new Date();
+    chamCong.NgayChamCong = new Date(Date.now());
     chamCong.GioBatDau = e.appointmentData.startDate;
     chamCong.GioKetThuc = e.appointmentData.endDate;
     chamCong.MaNhanVien = user.MaNhanVien;
@@ -77,11 +77,13 @@ export class TimekeepingComponent implements OnInit {
     chamCong.TenCongViec = e.appointmentData.text;
     chamCong.maLuongNavigation = this._luong;
     chamCong.MaNhanVienNavigation = user;
-    this.clockify.add(chamCong).subscribe(
-      res =>
-      {
-      }
-    );
+    // this.clockify.add(chamCong).subscribe(
+    //   res =>
+    //   {
+    //   }
+    // );
+
+    console.log(new Date(Date.now()));
   }
 }
 
@@ -92,7 +94,7 @@ export class TimekeepingComponent implements OnInit {
     DxButtonModule
   ],
   declarations: [TimekeepingComponent],
-  bootstrap: [AppModule],
+  bootstrap: [TimekeepingComponent],
 })
 export class AppModule { }
 

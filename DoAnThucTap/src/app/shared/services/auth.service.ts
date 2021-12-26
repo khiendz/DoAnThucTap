@@ -31,7 +31,6 @@ export class AuthService {
 
     try {
       // Send request
-      console.log(email, password);
       this._user = { ...defaultUser, email };
       this.router.navigate([this._lastAuthenticatedPath]);
 
@@ -68,7 +67,6 @@ export class AuthService {
   async createAccount(email: string, password: string) {
     try {
       // Send request
-      console.log(email, password);
 
       this.router.navigate(['/create-account']);
       return {
@@ -86,7 +84,6 @@ export class AuthService {
   async changePassword(email: string, recoveryCode: string) {
     try {
       // Send request
-      console.log(email, recoveryCode);
 
       return {
         isOk: true
@@ -103,7 +100,6 @@ export class AuthService {
   async resetPassword(email: string) {
     try {
       // Send request
-      console.log(email);
 
       return {
         isOk: true

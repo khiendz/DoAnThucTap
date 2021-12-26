@@ -13,6 +13,7 @@ namespace EmployeeManager.Models
         {
             Chamcong = new HashSet<Chamcong>();
             Hopdong = new HashSet<Hopdong>();
+            Quatrinhlamviec = new HashSet<Quatrinhlamviec>();
             Taikhoan = new HashSet<Taikhoan>();
         }
 
@@ -30,6 +31,7 @@ namespace EmployeeManager.Models
         public virtual Phongban MaPhongBanNavigation { get; set; }
         public virtual ICollection<Chamcong> Chamcong { get; set; }
         public virtual ICollection<Hopdong> Hopdong { get; set; }
+        public virtual ICollection<Quatrinhlamviec> Quatrinhlamviec { get; set; }
         public virtual ICollection<Taikhoan> Taikhoan { get; set; }
     }
 }

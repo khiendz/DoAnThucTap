@@ -12,6 +12,7 @@ namespace EmployeeManager.Models
         public Phongban()
         {
             Nhanvien = new HashSet<Nhanvien>();
+            Quatrinhlamviec = new HashSet<Quatrinhlamviec>();
         }
 
         public string MaPhongBan { get; set; }
@@ -19,5 +20,6 @@ namespace EmployeeManager.Models
         public string MoTa { get; set; }
 
         public virtual ICollection<Nhanvien> Nhanvien { get; set; }
+        public virtual ICollection<Quatrinhlamviec> Quatrinhlamviec { get; set; }
     }
 }

@@ -20,6 +20,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.OpenApi.Models;
+using EmployeeManager.Controllers;
+using System.Net.Http;
+using System.Net;
 
 namespace EmployeeManager
 {
@@ -54,6 +57,17 @@ namespace EmployeeManager
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Conn")));
             services.AddDbContext<DBcontext>(options => options.UseSqlServer(Configuration.GetConnectionString("Conn")));
             services.AddDbContext<QUANLYNHANVIENContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Employee")));
+
+            services.AddSingleton<HttpClient>();
+            services.AddSingleton<BaseController>();
+            //services.AddSingleton<ManageUserController>();
+            //services.AddSingleton<ManageClockifyController>();
+            //services.AddSingleton<ManageDepartmentController>();
+            //services.AddSingleton<ManageEmployeeController>();
+            //services.AddSingleton<ManageRoleController>();
+            //services.AddSingleton<ManageSalaryController>();
+            //services.AddSingleton<WebClient>();
+
 
             services.AddSwaggerGen(c =>
             {

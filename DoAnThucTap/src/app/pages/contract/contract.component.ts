@@ -53,7 +53,6 @@ export class ContractComponent implements OnInit {
   }
   update(event:any)
   {
-    console.log(event);
     this.service.update(event.data.MaHopDong, new HopDong('',event.data.TenHopDong,'',event.data.MaNhanVien)).subscribe(data=>
       {
         this.refreshList();
@@ -75,8 +74,7 @@ export class ContractComponent implements OnInit {
   }
   add(event:any)
   {
-    debugger;
-    console.log(event);
+
     this.contract= new HopDong('', event.data.TenHopDong,'',event.data.MaNhanVien);
     this.service.add(this.contract).subscribe(data=>
       {
@@ -85,7 +83,6 @@ export class ContractComponent implements OnInit {
   }
   removed(event:any)
   {
-    console.log(event.data.Id);
     this.service.remove(event.data.Id).subscribe(data=>
       {
         this.refreshList();
@@ -115,7 +112,7 @@ export class ContractComponent implements OnInit {
       formData.append('importFile' + i, file);
     }
 
-    this.httpClient.post('http://localhost:38312/api/managercontract/upload', formData).subscribe(() => {
+    this.httpClient.post('/managercontract/upload', formData).subscribe(() => {
       this.refreshList();
     });
   }
@@ -132,9 +129,7 @@ export class ContractComponent implements OnInit {
   refreshList()
   {
     this.service.getList().subscribe(data=>{
-debugger;
       this.listContract= data;
-      console.log(this.listContract);
     })
   }
   getEmployee()

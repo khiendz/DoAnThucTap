@@ -1,0 +1,33 @@
+<dx-data-grid
+  id="gridContainer"
+  [dataSource]="dataSource"
+  keyExpr="ID"
+  [allowColumnReordering]="true"
+  [showBorders]="true"
+  (onEditingStart)="logEvent('EditingStart')"
+  (onInitNewRow)="logEvent('InitNewRow')"
+  (onRowInserting)="logEvent('RowInserting')"
+  (onRowInserted)="logEvent('RowInserted')"
+  (onRowUpdating)="logEvent('RowUpdating')"
+  (onRowUpdated)="logEvent('RowUpdated')"
+  (onRowRemoving)="logEvent('RowRemoving')"
+  (onRowRemoved)="logEvent('RowRemoved')"
+  (onSaving)="logEvent('Saving')"
+  (onSaved)="logEvent('Saved')"
+  (onEditCanceling)="logEvent('EditCanceling')"
+  (onEditCanceled)="logEvent('EditCanceled')"
+>
+  <dxo-paging [enabled]="true"></dxo-paging>
+  <!-- <dxo-editing
+    mode="row"
+    [allowUpdating]="true"
+    [allowDeleting]="true"
+    [allowAdding]="true"
+  >
+  </dxo-editing> -->
+  <dxi-column dataField="FirstName" caption="Tên Nhân Viên"></dxi-column>
+  <dxi-column dataField="LastName" caption="Chức vụ"></dxi-column>
+  <dxi-column dataField="Prefix" caption="Phòng ban"></dxi-column>
+  <dxi-column dataField="Position" caption="Lương"  [width]="130"></dxi-column>
+</dx-data-grid>
+

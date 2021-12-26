@@ -23,7 +23,6 @@ export class RoleManagerComponent implements OnInit {
   }
   update(event:any)
   {
-    console.log(event);
     this.service.update(event.data.MaChucVu, new Chucvu(event.data.MaChucVu, event.data.TenChucVu,event.data.MoTa,event.data.HeSoLuong)).subscribe(data=>
       {
         this.refreshList();
@@ -35,8 +34,6 @@ export class RoleManagerComponent implements OnInit {
   }
   removed(event:any)
   {
-    debugger;
-    console.log(event.data.I);
     this.service.remove(event.data.MaChucVu).subscribe(data=>
       {
         this.refreshList();
@@ -44,7 +41,6 @@ export class RoleManagerComponent implements OnInit {
   }
   add(event:any)
   {
-    console.log(event);
     this.role= new Chucvu('', event.data.TenChucVu,event.data.MoTa,event.data.HeSoLuong)
     this.service.add(this.role).subscribe(data=>
       {
@@ -57,7 +53,6 @@ export class RoleManagerComponent implements OnInit {
     this.service.getList().subscribe(data=>{
 
       this.listRole= data;
-      console.log(this.listRole);
     })
   }
 }

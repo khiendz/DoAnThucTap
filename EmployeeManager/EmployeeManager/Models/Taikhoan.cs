@@ -9,12 +9,12 @@ namespace EmployeeManager.Models
 {
     public partial class Taikhoan
     {
-        public string Id { get; set; }
+        public string? Id { get; set; }
         public string UserName { get; set; }
         public string Password { get; set; }
         public string Role { get; set; }
         public string MaNhanVien { get; set; }
 
-        public virtual Nhanvien MaNhanVienNavigation { get; set; }
+        public virtual Nhanvien? MaNhanVienNavigation { get; set; }
     }
 }

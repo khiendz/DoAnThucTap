@@ -36,6 +36,7 @@ namespace EmployeeManager.Controllers
         public async Task<IActionResult> Login([FromBody] LoginModel model)
         {
             var user = await userManager.FindByNameAsync(model.Username);
+
             if (user != null && await userManager.CheckPasswordAsync(user, model.Password))
             {
                 var userRoles = await userManager.GetRolesAsync(user);
@@ -72,17 +73,18 @@ namespace EmployeeManager.Controllers
 
         [HttpPost]
         [Route("register")]
-        public async Task<IActionResult> Register([FromBody] RegisterModel model)
+        public async Task<IActionResult> Register([FromBody] Taikhoan model)
         {
-            var userExists = await userManager.FindByNameAsync(model.Username);
+            var userExists = await userManager.FindByNameAsync(model.UserName);
             if (userExists != null)
                 return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User already exists!" });
 
             ApplicationUser user = new ApplicationUser()
             {
-                Email = model.Email,
+                Id = model.Id,
+                Email = "khiendz@gmail.com",
                 SecurityStamp = Guid.NewGuid().ToString(),
-                UserName = model.Username
+                UserName = model.UserName
             };
             var result = await userManager.CreateAsync(user, model.Password);
             if (!result.Succeeded)
@@ -118,6 +120,28 @@ namespace EmployeeManager.Controllers
             {
                 await userManager.AddToRoleAsync(user, UserRoles.Admin);
             }
+
+            return Ok(new Response { Status = "Success", Message = "User created successfully!" });
+        }
+
+        [HttpPost]
+        [Route("update-user")]
+        public async Task<IActionResult> UpdateUser([FromBody] Taikhoan model)
+        {
+            var userExists = await userManager.FindByIdAsync(model.Id);
+            userExists.UserName = model.UserName;
+            await userManager.UpdateAsync(userExists);
+            await userManager.ChangePasswordAsync(userExists, model.UserName, model.Password);
+            return Ok(new Response { Status = "Success", Message = "User created successfully!" });
+        }
+
+        [HttpPost]
+        [Route("delete-user")]
+        public async Task<IActionResult> DeleteUser([FromBody] Taikhoan model)
+        {
+            var userExists = await userManager.FindByIdAsync(model.Id);
+
+            await userManager.DeleteAsync(userExists);
 
             return Ok(new Response { Status = "Success", Message = "User created successfully!" });
         }

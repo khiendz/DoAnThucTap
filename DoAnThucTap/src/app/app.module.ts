@@ -9,7 +9,7 @@ import { UnauthenticatedContentModule } from './unauthenticated-content';
 import { AppRoutingModule } from './app-routing.module';
 import { EmployeeManagerComponent } from './pages/employee-manager/employee-manager.component';
 import { DxiColumnModule, DxiItemModule, DxoEditingModule, DxoFormModule, DxoLookupComponent, DxoLookupModule, DxoPopupModule, DxoSearchPanelModule } from 'devextreme-angular/ui/nested';
-import { DxButtonModule, DxDataGridModule, DxFileUploaderModule, DxValidatorModule } from 'devextreme-angular';
+import { DxButtonModule, DxChartModule, DxDataGridModule, DxFileUploaderModule, DxSelectBoxModule, DxValidatorModule } from 'devextreme-angular';
 import { RoleManagerComponent } from './pages/role-manager/role-manager.component';
 import { DepartmentManagerComponent } from './pages/department-manager/department-manager.component';
 import { ContractComponent } from './pages/contract/contract.component';
@@ -19,12 +19,23 @@ import { CommonModule } from '@angular/common';
 import { JwtInterceptor, ErrorInterceptor } from './_helpers';
 import { TimekeepingComponent } from './pages/timekeeping/timekeeping.component';
 import { Appointment, Service } from 'src/app/pages/timekeeping/timekeeping.service';
+import { TinhluongComponent } from './pages/tinhluong/tinhluong.component';
+import { ServiceTinhLuong } from './pages/tinhluong/tinhluong.service';
+import { ThongkeComponent } from './pages/thongke/thongke.component';
+import { ThongKeService } from './pages/thongke/thongke.service';
+import { ManageAccountComponent } from './pages/manage-account/manage-account.component';
+import { ManageAccountService } from './pages/manage-account/manageAccount.service';
+import { WorkStageComponent } from './pages/work-stage/work-stage.component';
+import { ClockifyComponent } from './pages/clockify/clockify.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DepartmentManagerComponent,
-    ContractComponent
+    ContractComponent,
+    ThongkeComponent,
+    ManageAccountComponent,
+    WorkStageComponent,
   ],
   imports: [
     HttpClientModule,
@@ -51,9 +62,11 @@ import { Appointment, Service } from 'src/app/pages/timekeeping/timekeeping.serv
     DxiColumnModule,
     DxValidatorModule,
     DxDataGridModule,
-    DxFileUploaderModule
+    DxFileUploaderModule,
+    DxChartModule,
+    DxSelectBoxModule
   ],
-  providers: [AuthService, ScreenService, AppInfoService, Service,
+  providers: [AuthService, ScreenService, AppInfoService, Service, ServiceTinhLuong, ThongKeService, ManageAccountService,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     Title,],

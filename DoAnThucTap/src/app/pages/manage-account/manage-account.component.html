@@ -1,0 +1,36 @@
+<h3>Manage Account</h3>
+<dx-data-grid
+  id="gridContainer"
+  [dataSource]="listUser"
+  [allowColumnReordering]="true"
+  [showBorders]="true"
+  (onEditingStart)="logEvent('EditingStart')"
+  (onInitNewRow)="logEvent('InitNewRow')"
+  (onRowInserting)="logEvent('RowInserting')"
+  (onRowInserted)="createAccount($event)"
+  (onRowUpdating)="logEvent('RowUpdating')"
+  (onRowUpdated)="updateAccount($event)"
+  (onRowRemoving)="logEvent('RowRemoving')"
+  (onRowRemoved)="deleteAccount($event)"
+  (onSaving)="logEvent('Saving')"
+  (onSaved)="logEvent('Saved')"
+  (onEditCanceling)="logEvent('EditCanceling')"
+  (onEditCanceled)="logEvent('EditCanceled')"
+>
+  <dxo-paging [enabled]="true"></dxo-paging>
+  <dxo-editing
+    mode="row"
+    [allowUpdating]="true"
+    [allowDeleting]="true"
+    [allowAdding]="true"
+  >
+  </dxo-editing>
+  <dxi-column dataField="UserName" caption="Tên tài khoản" ></dxi-column>
+  <dxi-column dataField="Password" caption="Mật khẩu"></dxi-column>
+  <dxi-column dataField="Role" caption="Phân quyền"></dxi-column>
+  <dxi-column dataField="MaNhanVien" caption="Tên nhân viên"  [width]="330">
+    <dxo-lookup [dataSource]="listEmployee" displayExpr="TenNhanVien" valueExpr="MaNhanVien">
+    </dxo-lookup>
+  </dxi-column>
+</dx-data-grid>
+

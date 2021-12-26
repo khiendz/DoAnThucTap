@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http'
 import { Nhanvien } from '../model/Nhanvien.model';
 import { Observable } from 'rxjs';
-import { TaiKhoan } from '../model/TaiKhoan.model';
+import { Acount, TaiKhoan } from '../model/TaiKhoan.model';
 @Injectable({
   providedIn: 'root'
 })
@@ -11,30 +11,45 @@ export class ManageUser {
   constructor(public http:HttpClient) { }
   readonly urlAPI ="http://localhost:44344/api";
 
-  getListUser():Observable<TaiKhoan[]>
+  getAll():Observable<TaiKhoan[]>
   {
-    return this.http.get<TaiKhoan[]>(`/manageuser/get-department`);
+    return this.http.get<TaiKhoan[]>(`/manageuser/get-all`);
+  }
+
+  getListUser():Observable<Acount[]>
+  {
+    return this.http.get<Acount[]>(`/manageuser/get-all-user`);
   }
 
   getUserByUserName(id:string):Observable<any>
   {
-    debugger
-    let reques = (`/manageuser/get-detail-department/${id}`);
+    let reques = (`/manageuser/get-detail/${id}`);
     return this.http.get<any>(reques);
   }
 
   removed(id:any)
   {
-    return this.http.delete(`/ManageEmployee/${id}`)
+    return this.http.delete(`/manageuser/delete/${id}`)
+  }
+  removed2(Employee:TaiKhoan)
+  {
+    return this.http.post(`/authenticate/delete-user`,Employee);
   }
 
-  update(id:any, Employee:Nhanvien)
+  update(id:any, Employee:TaiKhoan)
   {
-    return this.http.put(`/ManageEmployee/${id}`,Employee);
+    return this.http.post(`/manageuser/update/${id}`,Employee);
   }
-  add(Employee:Nhanvien)
+  update2(Employee:TaiKhoan)
   {
-    debugger;
-    return this.http.post(`/ManageEmployee`,Employee);
+    return this.http.post(`/authenticate/update-user`,Employee);
+  }
+  add(Employee:TaiKhoan)
+  {
+    return this.http.post(`/manageuser/create`,Employee);
+  }
+  add2(Employee:TaiKhoan)
+  {
+    return this.http.post(`/authenticate/register`,Employee);
   }
 }

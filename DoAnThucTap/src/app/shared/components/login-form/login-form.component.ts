@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { HttpErrorResponse, HttpRequest, HttpResponse } from '@angular/common/http';
-import { Component, NgModule } from '@angular/core';
+import { Component, NgModule, ViewChild } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { DxFormModule } from 'devextreme-angular/ui/form';
 import { DxLoadIndicatorModule } from 'devextreme-angular/ui/load-indicator';
@@ -10,6 +10,7 @@ import { User } from 'src/app/model/Account';
 import { AuthService } from '../../services';
 import { AuthenticationService } from '../../services/authentication.service';
 import { ManageUser } from '../../services/manageUser.service';
+import { SideNavigationMenuComponent } from '../../components/side-navigation-menu/side-navigation-menu.component';
 
 @Component({
   selector: 'app-login-form',
@@ -21,7 +22,7 @@ export class LoginFormComponent {
   formData: any = {};
   loginForm: any;
   error: any;
-
+  obj!: SideNavigationMenuComponent;
   constructor(
     private authService: AuthService,
     private router: Router,
@@ -68,9 +69,10 @@ export class LoginFormComponent {
     this.manageUser.getUserByUserName(username).subscribe(
       res => {
         localStorage.setItem('accountUser', JSON.stringify(res));
-        console.log(res);
       }
     );
+
+    this.obj.refesh();
   }
 
   onCreateAccountClick = () => {

@@ -12,6 +12,11 @@ import { RoleManagerComponent } from './pages/role-manager/role-manager.componen
 import { DepartmentManagerComponent } from './pages/department-manager/department-manager.component';
 import { ContractComponent } from './pages/contract/contract.component';
 import { TimekeepingComponent } from './pages/timekeeping/timekeeping.component';
+import { TinhluongComponent } from './pages/tinhluong/tinhluong.component';
+import { ThongkeComponent } from './pages/thongke/thongke.component';
+import { ManageAccountComponent } from './pages/manage-account/manage-account.component';
+import { WorkStageComponent } from './pages/work-stage/work-stage.component';
+import { ClockifyComponent } from './pages/clockify/clockify.component';
 
 
 const routes: Routes = [
@@ -71,7 +76,29 @@ const routes: Routes = [
   },
   {
     path: 'timekeeping',
-    component: TimekeepingComponent,
+    component: ClockifyComponent,
+    canActivate: [ AuthGuard ]
+  }
+  ,
+  {
+    path: 'tinhLuong',
+    component: TinhluongComponent,
+    canActivate: [ AuthGuard ]
+  }
+  ,
+  {
+    path: 'thongke',
+    component: ThongkeComponent,
+    canActivate: [ AuthGuard ]
+  },
+  {
+    path: 'stage',
+    component: WorkStageComponent,
+    canActivate: [ AuthGuardService ]
+  },
+  {
+    path: 'manageaccount',
+    component: ManageAccountComponent,
     canActivate: [ AuthGuard ]
   }
 ];

@@ -32,8 +32,6 @@ export class EmployeeManagerComponent implements OnInit {
   }
   update(event:any)
   {
-    debugger;
-    console.log(event);
     this.service.update(event.data.MaNhanVien, new Nhanvien(event.data.MaNhanVien, event.data.TenNhanVien,event.data.NgaySinh,event.data.GioiTinh, event.data.SoDienThoai, event.data.DiaChi, event.data.Email, event.data.MaChucVu,event.data.MaPhongBan)).subscribe(data=>
       {
         this.refreshList();
@@ -45,7 +43,6 @@ export class EmployeeManagerComponent implements OnInit {
   }
   removed(event:any)
   {
-    console.log(event.data.MaNhanVien);
     this.service.removed(event.data.MaNhanVien).subscribe(data=>
       {
         this.refreshList();
@@ -53,8 +50,6 @@ export class EmployeeManagerComponent implements OnInit {
   }
   add(event:any)
   {
-    debugger;
-    console.log(event);
     this.employee= new Nhanvien('', event.data.TenNhanVien,event.data.NgaySinh,event.data.GioiTinh, event.data.SoDienThoai, event.data.DiaChi, event.data.Email, event.data.MaChucVu,event.data.MaPhongBan)
     this.service.add(this.employee).subscribe(data=>
       {
@@ -67,7 +62,6 @@ export class EmployeeManagerComponent implements OnInit {
     this.service.getListEmployee().subscribe(data=>{
 
       this.listEmployee= data;
-      console.log(this.listEmployee);
     })
 
   }

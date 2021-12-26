@@ -1,0 +1,91 @@
+<h2 class="content-block">Work Stage</h2>
+<div>
+    <dx-data-grid
+    id="gridTemplate"
+      #gridTemplate
+    [dataSource]="listWorkStage" [remoteOperations]="true" [height]="600" [showBorders]="true"
+        [allowColumnReordering]="true" [hoverStateEnabled]="true" [selectedRowKeys]="[]" (onRowUpdated)="update($event)"
+        (onRowInserted)="add($event)" (onRowRemoved)="removed($event)">
+        <dxo-paging [pageSize]="10"></dxo-paging>
+        <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[10, 20, 30]" [showInfo]="false"> </dxo-pager>
+        <dxo-search-panel [visible]="true" [highlightCaseSensitive]="true"></dxo-search-panel>
+        <dxo-editing mode="row" [allowAdding]="true" [allowUpdating]="true" [allowDeleting]="true">
+        </dxo-editing>
+
+        <dxo-editing mode="popup" [allowUpdating]="true">
+            <dxo-popup title="Quá trình làm việc" [showTitle]="true" [width]="1000" [height]="670">
+            </dxo-popup>
+            <dxo-form>
+                <dxi-item itemType="group" [colCount]="2" [colSpan]="2">
+
+                    <dxi-item dataField="MaNhanVien">
+                        <dxi-validation-rule type="required" message="Field is required">
+                        </dxi-validation-rule>
+                    </dxi-item>
+                    <dxi-item dataField="ThoiGianBatDau" [label]="{ text: 'Thời gian bắt đầu' }" editorType="dxDateBox"
+                        [editorOptions]="{
+
+                        min: '1/1/1000',
+                        width: '100%',
+                        type: 'date',
+                        displayFormat: 'dd/MM/yyyy',
+                        invalidDateMessage: 'Must be datetime format.',
+                        dateOutOfRangeMessage: 'Must be datetime format.'
+                        }">
+                        <dxi-validation-rule type="required" message="Field is required">
+                        </dxi-validation-rule>
+                    </dxi-item>
+                    <dxi-item dataField="ThoiGianKetThuc" [label]="{ text: 'Thời gian kết thúc' }" editorType="dxDateBox"
+                        [editorOptions]="{
+
+                        min: '1/1/1000',
+                        width: '100%',
+                        type: 'date',
+                        displayFormat: 'dd/MM/yyyy',
+                        invalidDateMessage: 'Must be datetime format.',
+                        dateOutOfRangeMessage: 'Must be datetime format.'
+                        }">
+                        <dxi-validation-rule type="required" message="Field is required">
+                        </dxi-validation-rule>
+                    </dxi-item>
+
+                    <dxi-item dataField="MaChucVu">
+                        <dxi-validation-rule type="required" message="Field is required">
+                        </dxi-validation-rule>
+                    </dxi-item>
+                    <dxi-item dataField="MaPhongBan">
+                        <dxi-validation-rule type="required" message="Field is required">
+                        </dxi-validation-rule>
+                    </dxi-item>
+                    <dxi-item dataField="MoTaCongViec">
+                      <dxi-validation-rule type="required" message="Field is required">
+                      </dxi-validation-rule>
+                  </dxi-item>
+                </dxi-item>
+            </dxo-form>
+        </dxo-editing>
+        <dxi-column alignment="right" caption="STT" width="60" [cellTemplate]="cellTemplateAutoIncrement">
+        </dxi-column>
+
+        <dxi-column dataField="MaNhanVien" alignment="center" caption="Tên nhân viên">
+          <dxo-lookup [dataSource]="listEmployee" valueExpr="MaNhanVien" displayExpr="TenNhanVien"> </dxo-lookup>
+        </dxi-column>
+
+        <dxi-column dataField="ThoiGianBatDau" alignment="center" dataType="date" format="dd/MM/yyyy" caption="Thời gian bắt đầu">
+        </dxi-column>
+
+        <dxi-column dataField="ThoiGianKetThuc" alignment="center" dataType="date" format="dd/MM/yyyy" caption="Thời gian kết thúc">
+        </dxi-column>
+
+
+        <dxi-column dataField="MaChucVu" alignment="center" caption="Chức vụ">
+            <dxo-lookup [dataSource]="listRole" valueExpr="MaChucVu" displayExpr="TenChucVu"> </dxo-lookup>
+        </dxi-column>
+
+        <dxi-column dataField="MaPhongBan" caption="Phòng ban">
+            <dxo-lookup [dataSource]="listDepartment" valueExpr="MaPhongBan" displayExpr="TenPhongBan"> </dxo-lookup>
+        </dxi-column>
+        <dxi-column dataField="MoTaCongViec" caption="Mô tả công việc">
+      </dxi-column>
+    </dx-data-grid>
+</div>

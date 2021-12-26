@@ -37,4 +37,12 @@ export class AuthenticationService {
         localStorage.removeItem('accountUser');
         this.currentUserSubject.next(new User());
     }
+
+    register(username: string, password: string)
+    {
+      return this.http.post<any>(`/authenticate/register`, { username, password })
+            .pipe(map(res => {
+              console.log(res);
+            }));
+    }
 }

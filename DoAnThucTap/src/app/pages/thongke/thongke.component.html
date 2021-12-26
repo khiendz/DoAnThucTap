@@ -1,0 +1,21 @@
+<div class="dx-field">
+  <div class="dx-field-value">
+    <dx-select-box [items]="simpleProducts"></dx-select-box>
+  </div>
+</div>
+<div style="padding: 10px;">
+  <div id="widget"></div>
+</div>
+<dx-chart
+  id="chart"
+  title="Thống kê chấm công"
+  [dataSource]="populationData"
+>
+  <dxo-legend [visible]="false"></dxo-legend>
+  <dxi-series type="bar"></dxi-series>
+  <dxo-argument-axis [tickInterval]="10">
+    <dxo-label>
+      <dxo-format type="decimal"></dxo-format>
+    </dxo-label>
+  </dxo-argument-axis>
+</dx-chart>

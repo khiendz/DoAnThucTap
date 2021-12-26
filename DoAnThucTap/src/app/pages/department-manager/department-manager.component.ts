@@ -23,7 +23,6 @@ export class DepartmentManagerComponent implements OnInit {
   }
   update(event:any)
   {
-    console.log(event);
     this.service.update(event.data.MaPhongBan, new PhongBan(event.data.MaPhongBan, event.data.TenPhongBan, event.data.MoTa)).subscribe(data=>
       {
         this.refreshList();
@@ -35,7 +34,6 @@ export class DepartmentManagerComponent implements OnInit {
   }
   removed(event:any)
   {
-    console.log(event.data.MaPhongBan);
     this.service.remove(event.data.MaPhongBan).subscribe(data=>
       {
         this.refreshList();
@@ -43,8 +41,6 @@ export class DepartmentManagerComponent implements OnInit {
   }
   add(event:any)
   {
-    console.log(event);
-
     this.department= new PhongBan('', event.data.TenPhongBan, event.data.MoTa)
     this.service.add(this.department).subscribe(data=>
       {

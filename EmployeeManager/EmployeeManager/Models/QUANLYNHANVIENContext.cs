@@ -26,6 +26,7 @@ namespace EmployeeManager.Models
         public virtual DbSet<Luong> Luong { get; set; }
         public virtual DbSet<Nhanvien> Nhanvien { get; set; }
         public virtual DbSet<Phongban> Phongban { get; set; }
+        public virtual DbSet<Quatrinhlamviec> Quatrinhlamviec { get; set; }
         public virtual DbSet<Taikhoan> Taikhoan { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -215,6 +216,40 @@ namespace EmployeeManager.Models
                 entity.Property(e => e.TenPhongBan)
                     .IsRequired()
                     .HasMaxLength(50);
+            });
+
+            modelBuilder.Entity<Quatrinhlamviec>(entity =>
+            {
+                entity.HasKey(e => e.MaQuaTrinhLamViec);
+                entity.ToTable("QUATRINHLAMVIEC");
+                entity.Property(e => e.MaQuaTrinhLamViec).HasMaxLength(50);
+                entity.Property(e => e.MaChucVu)
+                    .IsRequired()
+                    .HasMaxLength(50);
+                entity.Property(e => e.MaNhanVien)
+                    .IsRequired()
+                    .HasMaxLength(50);
+                entity.Property(e => e.MaPhongBan)
+                    .IsRequired()
+                    .HasMaxLength(50);
+                entity.Property(e => e.MoTaCongViec).IsRequired();
+                entity.Property(e => e.ThoiGianBatDau).HasColumnType("date");
+                entity.Property(e => e.ThoiGianKetThuc).HasColumnType("date");
+                entity.HasOne(d => d.MaChucVuNavigation)
+                    .WithMany(p => p.Quatrinhlamviec)
+                    .HasForeignKey(d => d.MaChucVu)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_QUATRINHLAMVIEC_CHUCVU");
+                entity.HasOne(d => d.MaNhanVienNavigation)
+                    .WithMany(p => p.Quatrinhlamviec)
+                    .HasForeignKey(d => d.MaNhanVien)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_QUATRINHLAMVIEC_NHANVIEN");
+                entity.HasOne(d => d.MaPhongBanNavigation)
+                    .WithMany(p => p.Quatrinhlamviec)
+                    .HasForeignKey(d => d.MaPhongBan)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_QUATRINHLAMVIEC_PHONGBAN");
             });
 
             modelBuilder.Entity<Taikhoan>(entity =>

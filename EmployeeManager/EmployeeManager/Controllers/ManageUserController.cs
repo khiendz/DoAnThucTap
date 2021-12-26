@@ -1,4 +1,5 @@
-﻿using EmployeeManager.Models;
+﻿using EmployeeManager.Authentication;
+using EmployeeManager.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -13,22 +14,46 @@ namespace EmployeeManager.Controllers
     [ApiController]
     public class ManageUserController : ControllerBase
     {
+        private readonly BaseController _baseController;
         private readonly QUANLYNHANVIENContext _context;
 
-        public ManageUserController(QUANLYNHANVIENContext context)
+        public ManageUserController(QUANLYNHANVIENContext context, BaseController baseController)
         {
             _context = context;
+            _baseController = baseController;
         }
 
         [HttpGet]
-        [Route("get-department")]
+        [Route("get-all")]
         public IEnumerable<Taikhoan> Get()
         {
             return _context.Taikhoan.ToList();
         }
 
+
+        [HttpGet]
+        [Route("get-all-user")]
+        public IEnumerable<AccountToClient> GetAllUser()
+        {
+            List<Taikhoan> account = _context.Taikhoan.ToList();
+            List<AccountToClient> obj = new List<AccountToClient>();
+
+            foreach (Taikhoan user in account)
+            {
+                AccountToClient _obj = new AccountToClient();
+                _obj.Id = user.Id;
+                _obj.MaNhanVien = user.MaNhanVien;
+                _obj.Password = user.Password;
+                _obj.Role = user.Role;
+                _obj.UserName = user.UserName;
+                _obj.TenNhanVien = _context.Nhanvien.FirstOrDefault(x => x.MaNhanVien == _obj.MaNhanVien).TenNhanVien;
+                obj.Add(_obj);
+            }
+            return obj;
+        }
+
         // GET: api/Employees/5
-        [HttpGet("get-detail-department/{id}")]
+        [HttpGet("get-detail/{id}")]
         public Taikhoan GetDepartment(string id)
         {
             var department = _context.Taikhoan.Where(em => em.UserName == id)
@@ -36,10 +61,13 @@ namespace EmployeeManager.Controllers
             return department;
         }
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutDepartment(string id, Chamcong department)
+        [HttpPost("update/{id}")]
+        public async Task<IActionResult> PutDepartment(string id, Taikhoan department)
         {
-            if (id != department.MaChamCong)
+
+            //var response = _baseController.PostRequest2<Task<IActionResult>>("https://localhost:44344/api/authenticate", "update-user", department);
+
+            if (id != department.Id)
             {
                 return BadRequest();
             }
@@ -64,27 +92,29 @@ namespace EmployeeManager.Controllers
 
             return NoContent();
         }
-
-        [HttpPost]
-        public async Task<ActionResult<Chamcong>> PostDepartment(Chamcong department)
+        [HttpPost("create")]
+        public async Task<ActionResult<Taikhoan>> PostDepartment([FromBody] Taikhoan department)
         {
-            department.MaChamCong = Guid.NewGuid().ToString();
-            _context.Chamcong.Add(department);
+            department.Id = Guid.NewGuid().ToString();
+            await _context.Taikhoan.AddAsync(department);
             await _context.SaveChangesAsync();
+                
 
-            return CreatedAtAction("GetDepartment", new { id = department.MaChamCong }, department);
+            return CreatedAtAction("GetDepartment", new { id = department.Id }, department);
         }
 
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<Chamcong>> DeleteDepartment(string id)
+        [HttpDelete("delete/{id}")]
+        public async Task<ActionResult<Taikhoan>> DeleteDepartment(string id)
         {
-            var department = await _context.Chamcong.FindAsync(id);
+
+            var department = _context.Taikhoan.Where(x => x.MaNhanVien == id).FirstOrDefault();
+         
             if (department == null)
             {
                 return NotFound();
             }
 
-            _context.Chamcong.Remove(department);
+            _context.Taikhoan.Remove(department);
             await _context.SaveChangesAsync();
 
             return department;
@@ -92,7 +122,7 @@ namespace EmployeeManager.Controllers
 
         private bool DepartmentExists(string id)
         {
-            return _context.Chamcong.Any(e => e.MaChamCong == id);
+            return _context.Taikhoan.Any(e => e.MaNhanVien == id);
         }
     }
 }
