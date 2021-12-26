@@ -81,7 +81,7 @@ const appointments: Appointment[] = [
 ];
 
 @Injectable()
-export class Service {
+export class ClockService {
   getAppointments(): Appointment[] {
     return appointments;
   }

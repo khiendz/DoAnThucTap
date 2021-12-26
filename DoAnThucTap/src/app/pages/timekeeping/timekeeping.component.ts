@@ -77,11 +77,11 @@ export class TimekeepingComponent implements OnInit {
     chamCong.TenCongViec = e.appointmentData.text;
     chamCong.maLuongNavigation = this._luong;
     chamCong.MaNhanVienNavigation = user;
-    // this.clockify.add(chamCong).subscribe(
-    //   res =>
-    //   {
-    //   }
-    // );
+    this.clockify.add(chamCong).subscribe(
+      res =>
+      {
+      }
+    );
 
     console.log(new Date(Date.now()));
   }

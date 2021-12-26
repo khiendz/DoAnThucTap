@@ -27,6 +27,7 @@ import { ManageAccountComponent } from './pages/manage-account/manage-account.co
 import { ManageAccountService } from './pages/manage-account/manageAccount.service';
 import { WorkStageComponent } from './pages/work-stage/work-stage.component';
 import { ClockifyComponent } from './pages/clockify/clockify.component';
+import { ClockService } from './pages/clockify/clockify.service';
 
 @NgModule({
   declarations: [
@@ -66,7 +67,7 @@ import { ClockifyComponent } from './pages/clockify/clockify.component';
     DxChartModule,
     DxSelectBoxModule
   ],
-  providers: [AuthService, ScreenService, AppInfoService, Service, ServiceTinhLuong, ThongKeService, ManageAccountService,
+  providers: [AuthService, ScreenService, AppInfoService, Service, ServiceTinhLuong, ThongKeService, ManageAccountService, ClockService,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     Title,],
