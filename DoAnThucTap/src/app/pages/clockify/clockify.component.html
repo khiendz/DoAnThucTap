@@ -1,6 +1,6 @@
 <dx-scheduler
   id="clock"
-  timeZone="	Asia/Ho_Chi_Minh"
+  timeZone="Asia/Ho_Chi_Minh"
   [dataSource]="appointmentsData"
   [views]="['week', 'month']"
   currentView="month"
@@ -8,5 +8,7 @@
   [startDayHour]="9"
   [height]="600"
   (onAppointmentAdded)="add($event)"
+  (onAppointmentDeleted)="_delete($event)"
+  (onAppointmentUpdated)="update($event)"
 >
 </dx-scheduler>

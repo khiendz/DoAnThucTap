@@ -6,28 +6,27 @@
   [showBorders]="true"
   (onEditingStart)="logEvent('EditingStart')"
   (onInitNewRow)="logEvent('InitNewRow')"
-  (onRowInserting)="logEvent('RowInserting')"
+  (onRowInserting)="add($event)"
   (onRowInserted)="logEvent('RowInserted')"
   (onRowUpdating)="logEvent('RowUpdating')"
-  (onRowUpdated)="logEvent('RowUpdated')"
+  (onRowUpdated)="update($event)"
   (onRowRemoving)="logEvent('RowRemoving')"
-  (onRowRemoved)="logEvent('RowRemoved')"
+  (onRowRemoved)="_delete($event)"
   (onSaving)="logEvent('Saving')"
   (onSaved)="logEvent('Saved')"
   (onEditCanceling)="logEvent('EditCanceling')"
   (onEditCanceled)="logEvent('EditCanceled')"
 >
   <dxo-paging [enabled]="true"></dxo-paging>
-  <!-- <dxo-editing
+  <dxo-editing
     mode="row"
     [allowUpdating]="true"
     [allowDeleting]="true"
     [allowAdding]="true"
   >
-  </dxo-editing> -->
-  <dxi-column dataField="FirstName" caption="Tên Nhân Viên"></dxi-column>
-  <dxi-column dataField="LastName" caption="Chức vụ"></dxi-column>
-  <dxi-column dataField="Prefix" caption="Phòng ban"></dxi-column>
-  <dxi-column dataField="Position" caption="Lương"  [width]="130"></dxi-column>
+  </dxo-editing>
+  <dxi-column dataField="Luong" caption="Hệ số lương"></dxi-column>
+  <dxi-column dataField="MaChucVu" caption="Chức vụ"></dxi-column>
+  <dxi-column dataField="Thue" caption="Thuế"></dxi-column>
 </dx-data-grid>
 

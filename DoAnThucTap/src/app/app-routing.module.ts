@@ -17,6 +17,7 @@ import { ThongkeComponent } from './pages/thongke/thongke.component';
 import { ManageAccountComponent } from './pages/manage-account/manage-account.component';
 import { WorkStageComponent } from './pages/work-stage/work-stage.component';
 import { ClockifyComponent } from './pages/clockify/clockify.component';
+import { DocumentManagerComponent } from './pages/document-manager/document-manager.component';
 
 
 const routes: Routes = [
@@ -100,7 +101,12 @@ const routes: Routes = [
     path: 'manageaccount',
     component: ManageAccountComponent,
     canActivate: [ AuthGuard ]
-  }
+  },
+  {
+    path: 'document',
+    component: DocumentManagerComponent,
+    canActivate: [ AuthGuardService ]
+  },
 ];
 
 @NgModule({

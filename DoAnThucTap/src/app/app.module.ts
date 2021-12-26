@@ -28,6 +28,7 @@ import { ManageAccountService } from './pages/manage-account/manageAccount.servi
 import { WorkStageComponent } from './pages/work-stage/work-stage.component';
 import { ClockifyComponent } from './pages/clockify/clockify.component';
 import { ClockService } from './pages/clockify/clockify.service';
+import { DocumentManagerComponent } from './pages/document-manager/document-manager.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { ClockService } from './pages/clockify/clockify.service';
     ContractComponent,
     ThongkeComponent,
     ManageAccountComponent,
+    DocumentManagerComponent,
     WorkStageComponent,
   ],
   imports: [

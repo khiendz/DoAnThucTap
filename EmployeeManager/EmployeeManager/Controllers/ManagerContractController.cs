@@ -10,13 +10,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Http;
 using EmployeeManager.Common;
 using EmployeeManager.Models;
-using Microsoft.AspNetCore.Authorization;
+using Microsoft.EntityFrameworkCore;
 
 namespace EmployeeManager.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
     public class ManagerContractController : ControllerBase
     {
         private readonly IConfiguration _configuration;
@@ -31,9 +30,9 @@ namespace EmployeeManager.Controllers
        
         [HttpGet]
         [Route("get")]
-        public List<Chitiethopdong> Get()
+        public IEnumerable<Hopdong>Get()
         {
-            return Helper.GetAllFiles(_configuration["AppSetting:BaseFolder"], _configuration["AppSetting:InputTemplateFolder"]);
+            return _context.Hopdong.ToList();
         }
         [HttpPost]
         [Route("add")]
@@ -45,14 +44,40 @@ namespace EmployeeManager.Controllers
 
             return CreatedAtAction("GetContract", new { id = contract.MaHopDong }, contract);
         }
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutRole(string id, Hopdong contact)
+        {
+            if (id != contact.MaHopDong)
+            {
+                return BadRequest();
+            }
 
+            _context.Entry(contact).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!Exists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return NoContent();
+        }
         [HttpPost]
         [Route("upload")]
-        public async Task<ActionResult<Chitiethopdong>> UploadDocuments()
+        public void UploadDocuments()
         {
             string inputPath = Path.Combine(_configuration["AppSetting:BaseFolder"], _configuration["AppSetting:InputTemplateFolder"]);
             var files = Request.Form.Files;
-            Chitiethopdong dc = new Chitiethopdong();
             files.ToList().ForEach(t =>
             {
                 var extension = Path.GetExtension(t.FileName);
@@ -68,16 +93,29 @@ namespace EmployeeManager.Controllers
                     System.IO.File.WriteAllBytes(filePath, fileBytes);
                 }
 
+                Chitiethopdong dc = new Chitiethopdong();
                 dc.MaChiTietHopDong = Guid.NewGuid().ToString();
                 dc.Name = t.FileName;
-                dc.Path = Helper.MeasureSizeOfFile(t.Length);
+                dc.Size = Helper.MeasureSizeOfFile(t.Length);
                 dc.Path = Path.Combine(inputPath, t.FileName);
                 _context.Chitiethopdong.Add(dc);
+               _context.SaveChangesAsync();
             });
-            await _context.SaveChangesAsync();
-            return CreatedAtAction("GetContact", new { id = dc.MaChiTietHopDong }, dc);
         }
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<Hopdong>> DeleteEmployee(string id)
+        {
+            var contract = await _context.Hopdong.FindAsync(id);
+            if (contract == null)
+            {
+                return NotFound();
+            }
 
+            _context.Hopdong.Remove(contract);
+            await _context.SaveChangesAsync();
+
+            return contract;
+        }
         [HttpPost]
         [Route("delete")]
         public async Task<Models.ApiResponse<bool>> DeleteDocument([FromBody] Chitiethopdong doc)
@@ -101,6 +139,10 @@ namespace EmployeeManager.Controllers
             if (!System.IO.File.Exists(filePath)) return null;
             var pdfFileData = System.IO.File.ReadAllBytes(filePath);
             return new FileContentResult(pdfFileData, "application/pdf");
+        }
+        private bool Exists(string id)
+        {
+            return _context.Hopdong.Any(e => e.MaHopDong == id);
         }
     }
 }

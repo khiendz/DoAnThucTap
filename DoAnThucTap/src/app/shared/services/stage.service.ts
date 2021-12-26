@@ -14,21 +14,21 @@ export class StageService {
 
   getListStage():Observable<QuaTrinhLamViec[]>
   {
-    return this.http.get<QuaTrinhLamViec[]>(`${this.urlAPI}/manageworkstage/get-stage`);
+    return this.http.get<QuaTrinhLamViec[]>(`/manageworkstage/get-stage`);
   }
 
   removed(id:any)
   {
-    return this.http.delete(`${this.urlAPI}/manageworkstage/${id}`)
+    return this.http.delete(`/manageworkstage/${id}`)
   }
 
   update(id:any, Stage:QuaTrinhLamViec)
   {
-    return this.http.put(`${this.urlAPI}/manageworkstage/${id}`,Stage);
+    return this.http.put(`/manageworkstage/${id}`,Stage);
   }
   add(Stage:QuaTrinhLamViec)
   {
     debugger;
-    return this.http.post(`${this.urlAPI}/manageworkstage`,Stage);
+    return this.http.post(`/manageworkstage`,Stage);
   }
 }

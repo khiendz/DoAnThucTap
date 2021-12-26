@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http'
-import { Contract } from '../model/DocumentManager.model';
 import { Observable } from 'rxjs';
 import { HopDong } from '../model/HopDong.model';
 @Injectable({
@@ -9,7 +8,7 @@ import { HopDong } from '../model/HopDong.model';
 export class ContractService {
 
   constructor(public http:HttpClient) { }
-  readonly urlAPI ="http://localhost:44344/api";
+  readonly urlAPI ="http://localhost:38312/api";
   Role:HopDong= new HopDong('','','','');
 
 
@@ -17,7 +16,10 @@ export class ContractService {
   {
     return this.http.get<HopDong[]>(`/ManagerContract/get`);
   }
-
+  getListDoc():Observable<Document[]>
+  {
+    return this.http.get<Document[]>(`/ManageDocument/get-document`);
+  }
   upload():string
   {
     return `/ManagerContract/upload`;
@@ -25,7 +27,7 @@ export class ContractService {
   add(contract:HopDong)
   {
     debugger;
-    return this.http.post(`/ManageContract`,contract);
+    return this.http.post(`/ManagerContract/add`,contract);
   }
   download():string
   {
@@ -33,7 +35,7 @@ export class ContractService {
   }
   update(id:any, contract:HopDong)
   {
-    return this.http.put(`/ManageContract/${id}`,contract);
+    return this.http.put(`/ManagerContract/${id}`,contract);
   }
   delete():string
   {
@@ -41,7 +43,9 @@ export class ContractService {
   }
   remove(id:any)
   {
-    return this.http.delete(`/ManagerContract/${id}`)
+    return this.http.delete(`/ManagerContract/${id}`);
   }
-
+  removeDetail(id:any){
+    return this.http.delete(`/ManageDocument/${id}`);
+  }
 }

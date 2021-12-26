@@ -1,28 +1,21 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { ContractService } from 'src/app/shared/services/contract.service';
-import notify from 'devextreme/ui/notify';
 import { HttpClient } from '@angular/common/http';
-import { confirm } from 'devextreme/ui/dialog';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { DxDataGridComponent } from 'devextreme-angular/ui/data-grid';
+import notify from 'devextreme/ui/notify';
 import * as saveAs from 'file-saver';
-import { DxDataGridComponent } from 'devextreme-angular';
+import { confirm } from 'devextreme/ui/dialog';
+import { ContractService } from 'src/app/shared/services/contract.service';
 import { CommondService } from 'src/app/shared/services/url-api.service';
-import { HopDong } from 'src/app/shared/model/HopDong.model';
-import { Nhanvien } from 'src/app/shared/model/Nhanvien.model';
-
 
 @Component({
-  selector: 'app-contract',
-  templateUrl: './contract.component.html',
-  styleUrls: ['./contract.component.scss']
+  selector: 'app-document-manager',
+  templateUrl: './document-manager.component.html',
+  styleUrls: ['./document-manager.component.scss']
 })
-
-export class ContractComponent implements OnInit {
-  listContract:HopDong[]=[];
+export class DocumentManagerComponent implements OnInit {
+  listDocument:Document[]=[];
   documentsSource: any[] = [];
   department : any;
-  contract:HopDong= new HopDong('','','','');
-  listEmployee:Nhanvien[]=[];
-  listHopDong:Document[]=[];
   @ViewChild('gridTemplate')
   gridTemplateComp!: DxDataGridComponent;
   constructor(public service:ContractService, private httpClient: HttpClient, public employService: CommondService) {
@@ -31,12 +24,11 @@ export class ContractComponent implements OnInit {
 
   ngOnInit(): void {
     this.refreshList();
-    this.getEmployee();
-    this.getHopDong();
   }
 
-  upload()
+  upload(event:any)
   {
+    debugger;
     this.service.upload();
     this.refreshList();
   }
@@ -50,22 +42,15 @@ export class ContractComponent implements OnInit {
     debugger;
     this.httpClient.post('/managercontract/download', item, { responseType: 'blob' }).subscribe((data: Blob) => {
       saveAs(data, item.Name);
+
     });
   }
-  update(event:any)
-  {
-    debugger;
-    console.log(event);
-    this.service.update(event.data.MaHopDong, new HopDong(event.data.MaHopDong,event.data.TenHopDong,event.data.MaChiTietHopDong,event.data.MaNhanVien)).subscribe(data=>
-      {
-        this.refreshList();
-      })
-  }
-  delete(e: any) {
-    const item = e.data;
+
+  delete(event: any) {
+    const item = event.data;
     const doc = this.documentsSource.find((d) => d.Id === item.Id);
     const confirmText = 'Bạn có muốn xóa file này không';
-    const result = confirm('<i>' + confirmText + '</i>','Xác nhận');
+    const result = confirm('<i>' + confirmText + '</i>', 'Xác nhận');
     result.then((dialogResult) => {
       if (dialogResult) {
         debugger;
@@ -73,22 +58,18 @@ export class ContractComponent implements OnInit {
           this.refreshList();
         });
       }
+      this.service.removeDetail(event.data.MaChiTietHopDong).subscribe(data=>
+        {
+          this.refreshList();
+        })
     });
+
   }
-  add(event:any)
-  {
-    debugger;
-    console.log(event);
-    this.contract= new HopDong('', event.data.TenHopDong,event.data.MaChiTietHopDong,event.data.MaNhanVien);
-    console.log(this.contract);
-    this.service.add(this.contract).subscribe(data=>
-      {
-        this.refreshList();
-      })
-  }
+
   removed(event:any)
   {
-    this.service.remove(event.data.MaHopDong).subscribe(data=>
+    console.log(event.data.Id);
+    this.service.remove(event.data.Id).subscribe(data=>
       {
         this.refreshList();
       })
@@ -100,7 +81,7 @@ export class ContractComponent implements OnInit {
     const formData: any = new FormData();
     for (let i = 0; i < files.length; i++) {
       const file = files[i];
-      if (this.listContract.some((x:any) => x.Name === file.name)) {
+      if (this.listDocument.some((x:any) => x.Name === file.name)) {
         notify('Duplicate document name', 'error');
         isValid = false;
       }
@@ -119,6 +100,7 @@ export class ContractComponent implements OnInit {
 
     this.httpClient.post('/managercontract/upload', formData).subscribe(() => {
       this.refreshList();
+
     });
   }
 
@@ -133,28 +115,9 @@ export class ContractComponent implements OnInit {
 
   refreshList()
   {
-    this.service.getList().subscribe(data=>{
-    debugger;
-      this.listContract= data;
-      console.log(this.listContract);
+    this.service.getListDoc().subscribe(data=>{
+      this.listDocument= data;
     })
-  }
-  getEmployee()
-  {
-    this.employService.getListEmployee().subscribe(data=>
-      {
-        this.listEmployee = data;
-      })
-
-  }
-
-  getHopDong()
-  {
-    this.service.getListDoc().subscribe(data=>
-      {
-        this.listHopDong = data;
-      })
-
   }
 }
 

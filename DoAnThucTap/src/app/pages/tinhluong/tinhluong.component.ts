@@ -3,6 +3,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { DxDataGridModule, DxButtonModule } from 'devextreme-angular';
 import { ServiceTinhLuong, Employee, State } from './tinhluong.service';
+import { ClockifyService } from '../../shared/services/clockify.service';
+import { SalartService } from 'src/app/shared/services/manageSalary.service';
+import { Luong } from 'src/app/shared/model/Luong.model';
+import { RoleService } from 'src/app/shared/services/role.service';
+import { Chucvu } from 'src/app/shared/model/Chucvu.model';
 
 if (!/localhost/.test(document.location.host)) {
   enableProdMode();
@@ -14,15 +19,31 @@ if (!/localhost/.test(document.location.host)) {
 })
 export class TinhluongComponent implements OnInit {
 
-  dataSource: Employee[];
-
+  dataSource: Luong[] = [];
+  listLuong: Luong[] = [];
+  luong: Luong = new Luong('',0,'',0);
+  listChucVu: Chucvu[] = [];
   // states: State[];
 
   events: Array<string> = [];
 
-  constructor(service: ServiceTinhLuong) {
-    this.dataSource = service.getEmployees();
+  constructor(service: ServiceTinhLuong, serviceTinhLuong: SalartService, serviceChucVu: RoleService) {
     // this.states = service.getStates();
+    serviceTinhLuong.getList().subscribe(
+      res =>
+      {
+        this.listLuong = res;
+        this.dataSource = res;
+      }
+    );
+
+    serviceChucVu.getList().subscribe(
+      res =>
+      {
+        this.listChucVu = res;
+      }
+    );
+
   }
 
   logEvent(eventName: any) {
@@ -34,6 +55,20 @@ export class TinhluongComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+
+  add(e: any) {
+
+    console.log(e);
+  }
+
+  _delete(e: any) {
+    console.log(e);
+  }
+
+  update(e: any)
+  {
+    console.log(e);
   }
 
 }

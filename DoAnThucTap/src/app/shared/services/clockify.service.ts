@@ -24,7 +24,7 @@ export class ClockifyService {
 
   remove(id:any)
   {
-    return this.http.delete(`/ManageClockify/${id}`)
+    return this.http.delete(`/ManageClockify/delete/${id}`)
   }
 
   update(id:any, Department:ChamCong)

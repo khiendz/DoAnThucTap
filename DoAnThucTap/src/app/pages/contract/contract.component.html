@@ -1,60 +1,48 @@
-<div class="x_panel">
-  <h2 class="content-block">Contract</h2>
-
-    <div class="mt-3 float-left">
-
-      <dx-button
-        id="inputButton"
-        icon="parentfolder"
-        style="z-index: 1; position: absolute; right: 270px"
-        hint="Upload"
-        type="default"
-        (onClick)="importFile.click()"
-      >
-      </dx-button>
-      <input
-
-        type="file"
-        accept=".pdf"
-        hidden
-        #importFile
-        (change)="importDocuments($event)"
-        onclick="this.value=null;"
-        multiple
-      />
-      <dx-data-grid
-        id="gridTemplate"
-        #gridTemplate
-        [dataSource]="listContract"
-        [allowColumnResizing]="true"
-
-        noDataText="No data"
-      >
-        <dxo-search-panel [visible]="true" [width]="240" placeholder="Search"> </dxo-search-panel>
-        <dxo-paging [pageSize]="10"></dxo-paging>
+<h2 class="content-block">Contract</h2>
+<dx-data-grid
+id="gridTemplate"
+      #gridTemplate
+[dataSource]="listContract" [remoteOperations]="true" [showBorders]="true"
+    [allowColumnReordering]="true" [hoverStateEnabled]="true" [selectedRowKeys]="[]" (onRowUpdated)="update($event)"
+    (onRowInserted)="add($event)" (onRowRemoved)="removed($event)">
+    <dxo-paging [pageSize]="10"></dxo-paging>
         <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[10, 20, 30]" [showInfo]="false"> </dxo-pager>
-        <dxi-column alignment="center" dataField="Id" caption="Id" >
-        </dxi-column>
-        <dxi-column dataField="Name" alignment="center" caption="Name"></dxi-column>
-        <dxi-column dataField="Size" alignment="center" caption="Size" width="auto"></dxi-column>
-        <dxi-column dataField="Path" alignment="center" caption="Path" width="auto"></dxi-column>
+    <dxo-search-panel [visible]="true" [highlightCaseSensitive]="true"></dxo-search-panel>
+    <dxo-editing mode="row" [allowAdding]="true" [allowUpdating]="true" [allowDeleting]="true">
+    </dxo-editing>
 
-        <dxi-column
-          alignment="center"
-          minWidth="90"
-          width="auto"
-          cellTemplate="cellTemplate"
-          caption="Action"
-        >
-        </dxi-column>
-        <div *dxTemplate="let item of 'cellTemplate'">
-          <dx-button hint="Delete" style="margin-right: 5px" type="danger" (onClick)="delete(item)" icon ="trash">
+    <dxo-editing mode="popup" [allowUpdating]="true">
+        <dxo-popup title="Thông tin về hợp đồng" [showTitle]="true" [width]="600" [height]="425">
+        </dxo-popup>
+        <dxo-form>
+            <dxi-item itemType="group" [colCount]="2" [colSpan]="2">
+                <dxi-item dataField="TenHopDong">
+                    <dxi-validation-rule type="required" message="Field is required">
+                    </dxi-validation-rule>
+                </dxi-item>
+                <dxi-item dataField="MaNhanVien">
+                    <dxi-validation-rule type="required" message="Field is required">
+                    </dxi-validation-rule>
+                </dxi-item>
+                <dxi-item dataField="MaChiTietHopDong">
+                  <dxi-validation-rule type="required" message="Field is required">
+                  </dxi-validation-rule>
+              </dxi-item>
+            </dxi-item>
+        </dxo-form>
+    </dxo-editing>
 
-          </dx-button>
-          <dx-button hint="Download" type="default" (onClick)="download(item)" icon="download">
+    <dxi-column caption="STT" width="60" [cellTemplate]="cellTemplateAutoIncrement">
+    </dxi-column>
 
-          </dx-button>
-        </div>
-      </dx-data-grid>
-    </div>
-  </div>
+    <dxi-column dataField="TenHopDong" caption="Tên hợp đồng">
+    </dxi-column>
+
+    <dxi-column dataField="MaNhanVien" caption="Tên nhân viên">
+      <dxo-lookup [dataSource]="listEmployee" valueExpr="MaNhanVien" displayExpr="TenNhanVien"> </dxo-lookup>
+    </dxi-column>
+
+    <dxi-column dataField="MaChiTietHopDong" caption="Tên file hợp đồng">
+      <dxo-lookup [dataSource]="listHopDong" valueExpr="MaChiTietHopDong" displayExpr="Name"> </dxo-lookup>
+    </dxi-column>
+</dx-data-grid>

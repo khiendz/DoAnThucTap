@@ -45,6 +45,10 @@ export const navigation = [
       {
         text: 'Manage Account',
         path: '/manageaccount'
+      },
+      {
+        text: 'Document',
+        path: '/document'
       }
     ]
   }

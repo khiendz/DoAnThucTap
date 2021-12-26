@@ -51,7 +51,13 @@ namespace EmployeeManager.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(department).State = EntityState.Modified;
+            Chamcong obj = _context.Chamcong.Find(id);
+            obj.GioBatDau = department.GioBatDau;
+            obj.GioKetThuc = department.GioKetThuc;
+            obj.TenCongViec = department.TenCongViec;
+
+            //_context.Entry(department).State = EntityState.Modified;
+            _context.Chamcong.Update(obj);
 
             try
             {
@@ -79,8 +85,8 @@ namespace EmployeeManager.Controllers
             Chamcong chamCong = new Chamcong();
             chamCong.MaChamCong = department.MaChamCong;
             chamCong.MaLuong = department.MaLuong;
-            chamCong.GioBatDau = department.GioBatDau.Date; 
-            chamCong.GioKetThuc = department.GioKetThuc.Date;
+            chamCong.GioBatDau = department.GioBatDau; 
+            chamCong.GioKetThuc = department.GioKetThuc;
             chamCong.MaNhanVien = department.MaNhanVien;
             chamCong.TenCongViec = department.TenCongViec;
             chamCong.NgayChamCong = department.NgayChamCong.Date;
@@ -100,7 +106,7 @@ namespace EmployeeManager.Controllers
             return CreatedAtAction("GetDepartment", new { id = department.MaChamCong }, department);
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("delete/{id}")]
         public async Task<ActionResult<Chamcong>> DeleteDepartment(string id)
         {
             var department = await _context.Chamcong.FindAsync(id);
