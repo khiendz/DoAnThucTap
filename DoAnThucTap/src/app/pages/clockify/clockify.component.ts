@@ -27,40 +27,48 @@ export class ClockifyComponent implements OnInit {
   scheduler!: DxSchedulerComponent;
   appointmentsData: Appointment[];
   maNhanVien: string = '';
-  currentDate: Date = new Date(2021, 2, 28);
+  currentDate: Date = new Date(Date.now());
   _luong: Luong = new Luong('',0,'',0);
   _chamCong: ChamCong = new ChamCong('',new Date(),'',new Date(),new Date(),'','',new Luong('',0,'',0), new Nhanvien('','',new Date(),0,'','','','',''));
   listLuong: ChamCong[] = [];
 
-  constructor(service: Service, public salartService: SalartService,public manageUser: ManageUser, public clockify: ClockifyService) {
-    this.appointmentsData = service.getAppointments();
-    // var apiData: Appointment = new Appointment();
+  constructor(service: ClockService, public salartService: SalartService,public manageUser: ManageUser, public clockify: ClockifyService) {
+    this.appointmentsData = [];
+    var apiData: Appointment = new Appointment();
 
-    // this.clockify.getList().subscribe(
-    //   res =>
-    //   {
-    //     debugger
-    //     this.listLuong = res;
-    //     this.listLuong.forEach(element => {
-    //       apiData.text = element.TenCongViec;
-    //       apiData.startDate = new Date(element.GioBatDau);
-    //       apiData.endDate = new Date(element.GioKetThuc);
-    //       this.appointmentsData.push(apiData);
-    //     });
-    //   }
-    // )
+    this.clockify.getList().subscribe(
+      res =>
+      {
+        this.listLuong = res;
+        this.listLuong.forEach(element => {
+          apiData = {
+            text: element.TenCongViec,
+            startDate: new Date(element.GioBatDau),
+            endDate: new Date(element.GioKetThuc),
+          };
+          this.appointmentsData.push(apiData);
+        });
+      }
+    )
+
+    // apiData = {
+    //   text: 'Website Re-Design Plan',
+    //   startDate: new Date('2021-06-29T16:30:00.000Z'),
+    //   endDate: new Date('2021-6-29T18:30:00.000Z'),
+    // };
+    // this.appointmentsData.push(apiData);
   }
 
   ngOnInit(): void {
-    // const user = localStorage.getItem('accountUser')
-    // ? JSON.parse(localStorage.getItem('accountUser') || '')
-    // : [];
-    // this.salartService.getLuongById(user.MaNhanVien).subscribe(
-    //   res =>
-    //   {
-    //     this._luong = res;
-    //   }
-    // );
+    const user = localStorage.getItem('accountUser')
+    ? JSON.parse(localStorage.getItem('accountUser') || '')
+    : [];
+    this.salartService.getLuongById(user.MaNhanVien).subscribe(
+      res =>
+      {
+        this._luong = res;
+      }
+    );
   }
 
   add(e:any)

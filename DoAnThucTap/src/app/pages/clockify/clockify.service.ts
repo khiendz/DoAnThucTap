@@ -13,8 +13,8 @@ export class Appointment {
 const appointments: Appointment[] = [
   {
     text: 'Website Re-Design Plan',
-    startDate: new Date('2021-03-29T16:30:00.000Z'),
-    endDate: new Date('2021-03-29T18:30:00.000Z'),
+    startDate: new Date('2021-05-29T16:30:00.000Z'),
+    endDate: new Date('2021-05-29T18:30:00.000Z'),
   }, {
     text: 'Book Flights to San Fran for Sales Trip',
     startDate: new Date('2021-03-29T19:00:00.000Z'),
