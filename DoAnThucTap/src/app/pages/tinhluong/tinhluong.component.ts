@@ -27,13 +27,14 @@ export class TinhluongComponent implements OnInit {
 
   events: Array<string> = [];
 
-  constructor(service: ServiceTinhLuong, serviceTinhLuong: SalartService, serviceChucVu: RoleService) {
+  constructor(service: ServiceTinhLuong,public serviceTinhLuong: SalartService, public serviceChucVu: RoleService) {
     // this.states = service.getStates();
     serviceTinhLuong.getList().subscribe(
       res =>
       {
         this.listLuong = res;
         this.dataSource = res;
+        console.log(res);
       }
     );
 
@@ -59,16 +60,46 @@ export class TinhluongComponent implements OnInit {
 
   add(e: any) {
 
-    console.log(e);
+    let _luong : Luong = this.luong;
+
+    _luong.Luong1 = e.data.Luong1;
+    _luong.MaChucVu = e.data.MaChucVu;
+    _luong.Thue = e.data.Thue;
+
+    this.serviceTinhLuong.add(_luong).subscribe(
+      res =>
+      {
+
+      }
+    );
   }
 
   _delete(e: any) {
+
+    this.serviceTinhLuong.add(e.data.MaLuong).subscribe(
+      res =>
+      {
+
+      }
+    );
     console.log(e);
   }
 
   update(e: any)
   {
-    console.log(e);
+    let _luong : Luong = this.luong;
+
+    _luong.MaLuong = e.data.MaLuong;
+    _luong.Luong1 = e.data.Luong1;
+    _luong.MaChucVu = e.data.MaChucVu;
+    _luong.Thue = e.data.Thue;
+
+    this.serviceTinhLuong.update(_luong.MaLuong,_luong).subscribe(
+      res =>
+      {
+
+      }
+    );
   }
 
 }

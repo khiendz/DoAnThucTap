@@ -1,7 +1,6 @@
 <dx-data-grid
   id="gridContainer"
   [dataSource]="dataSource"
-  keyExpr="ID"
   [allowColumnReordering]="true"
   [showBorders]="true"
   (onEditingStart)="logEvent('EditingStart')"
@@ -25,8 +24,11 @@
     [allowAdding]="true"
   >
   </dxo-editing>
-  <dxi-column dataField="Luong" caption="Hệ số lương"></dxi-column>
-  <dxi-column dataField="MaChucVu" caption="Chức vụ"></dxi-column>
+  <dxi-column dataField="Luong1" caption="Hệ số lương"></dxi-column>
+  <dxi-column dataField="MaChucVu" caption="Chức vụ">
+    <dxo-lookup [dataSource]="listChucVu" displayExpr="TenChucVu" valueExpr="MaChucVu">
+    </dxo-lookup>
+  </dxi-column>
   <dxi-column dataField="Thue" caption="Thuế"></dxi-column>
 </dx-data-grid>
 
