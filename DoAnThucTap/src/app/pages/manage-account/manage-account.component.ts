@@ -8,6 +8,10 @@ import { AuthenticationService } from 'src/app/shared/services/authentication.se
 import { ManageUser } from 'src/app/shared/services/manageUser.service';
 import { CommondService } from 'src/app/shared/services/url-api.service';
 import { ManageAccountService, Employee, State } from './manageAccount.service';
+import { saveAs } from 'file-saver-es';
+// Our demo infrastructure requires us to use 'file-saver-es'. We recommend that you use the official 'file-saver' package in your applications.
+import { exportDataGrid } from 'devextreme/excel_exporter';
+import * as ExcelJS from 'exceljs';
 
 @Component({
   selector: 'app-manage-account',
@@ -123,6 +127,22 @@ export class ManageAccountComponent implements OnInit {
         {
           console.log(res);
         });
+  }
+
+  onExporting(e:any) {
+    const workbook = new ExcelJS.Workbook();
+    const worksheet = workbook.addWorksheet('Employees');
+
+    exportDataGrid({
+      component: e.component,
+      worksheet,
+      autoFilterEnabled: true,
+    }).then(() => {
+      workbook.xlsx.writeBuffer().then((buffer) => {
+        saveAs(new Blob([buffer], { type: 'application/octet-stream' }), 'Employee.xlsx');
+      });
+    });
+    e.cancel = true;
   }
 
 }

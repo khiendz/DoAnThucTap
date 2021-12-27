@@ -21,6 +21,21 @@
       location="after"
       locateInMenu="auto"
       menuItemTemplate="menuItem">
+      <div class="options">
+        <div class="caption">Options</div>
+        <div class="option">
+          <label for="selectInput">Language</label>
+          <dx-select-box
+            id="selectBox"
+            [dataSource]="locales"
+            displayExpr="Name"
+            valueExpr="Value"
+            [value]="locale"
+            [inputAttr]="{ id: 'selectInput' }"
+          >
+          </dx-select-box>
+        </div>
+      </div>
       <div *dxTemplate="let data of 'item'">
         <dx-button
           class="user-button authorization"

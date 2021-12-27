@@ -8,6 +8,10 @@ import { SalartService } from 'src/app/shared/services/manageSalary.service';
 import { Luong } from 'src/app/shared/model/Luong.model';
 import { RoleService } from 'src/app/shared/services/role.service';
 import { Chucvu } from 'src/app/shared/model/Chucvu.model';
+import { saveAs } from 'file-saver-es';
+// Our demo infrastructure requires us to use 'file-saver-es'. We recommend that you use the official 'file-saver' package in your applications.
+import { exportDataGrid } from 'devextreme/excel_exporter';
+import * as ExcelJS from 'exceljs';
 
 if (!/localhost/.test(document.location.host)) {
   enableProdMode();
@@ -100,6 +104,22 @@ export class TinhluongComponent implements OnInit {
 
       }
     );
+  }
+
+  onExporting(e:any) {
+    const workbook = new ExcelJS.Workbook();
+    const worksheet = workbook.addWorksheet('Employees');
+
+    exportDataGrid({
+      component: e.component,
+      worksheet,
+      autoFilterEnabled: true,
+    }).then(() => {
+      workbook.xlsx.writeBuffer().then((buffer) => {
+        saveAs(new Blob([buffer], { type: 'application/octet-stream' }), 'Employee.xlsx');
+      });
+    });
+    e.cancel = true;
   }
 
 }

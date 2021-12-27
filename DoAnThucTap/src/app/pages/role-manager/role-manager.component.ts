@@ -2,6 +2,10 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { DxDataGridComponent } from 'devextreme-angular';
 import { Chucvu } from 'src/app/shared/model/Chucvu.model';
 import { RoleService } from 'src/app/shared/services/role.service';
+import { saveAs } from 'file-saver-es';
+// Our demo infrastructure requires us to use 'file-saver-es'. We recommend that you use the official 'file-saver' package in your applications.
+import { exportDataGrid } from 'devextreme/excel_exporter';
+import * as ExcelJS from 'exceljs';
 
 @Component({
   selector: 'app-role-manager',
@@ -54,6 +58,22 @@ export class RoleManagerComponent implements OnInit {
 
       this.listRole= data;
     })
+  }
+
+  onExporting(e:any) {
+    const workbook = new ExcelJS.Workbook();
+    const worksheet = workbook.addWorksheet('Employees');
+
+    exportDataGrid({
+      component: e.component,
+      worksheet,
+      autoFilterEnabled: true,
+    }).then(() => {
+      workbook.xlsx.writeBuffer().then((buffer) => {
+        saveAs(new Blob([buffer], { type: 'application/octet-stream' }), 'Employee.xlsx');
+      });
+    });
+    e.cancel = true;
   }
 }
 

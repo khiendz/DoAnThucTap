@@ -7,6 +7,25 @@ import { DxButtonModule } from 'devextreme-angular/ui/button';
 import { DxToolbarModule } from 'devextreme-angular/ui/toolbar';
 
 import { Router } from '@angular/router';
+import { DxSelectBoxModule } from 'devextreme-angular';
+
+export class Locale {
+  Name: string = '';
+
+  Value: string = '';
+}
+
+const locales: Locale[] = [{
+  Name: 'English',
+  Value: 'en',
+}, {
+  Name: 'Deutsch',
+  Value: 'de',
+}, {
+  Name: 'Русский',
+  Value: 'ru',
+}];
+
 @Component({
   selector: 'app-header',
   templateUrl: 'header.component.html',
@@ -22,6 +41,10 @@ export class HeaderComponent implements OnInit {
 
   @Input()
   title!: string;
+
+  locale: string = '';
+
+  locales: Locale[] = [];
 
   user: IUser | null = { email: '' };
 
@@ -56,7 +79,8 @@ export class HeaderComponent implements OnInit {
     CommonModule,
     DxButtonModule,
     UserPanelModule,
-    DxToolbarModule
+    DxToolbarModule,
+    DxSelectBoxModule
   ],
   declarations: [ HeaderComponent ],
   exports: [ HeaderComponent ]
