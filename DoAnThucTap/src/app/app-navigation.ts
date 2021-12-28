@@ -9,45 +9,45 @@ export const navigation = [
     icon: 'folder',
     items: [
       {
-        text: 'Employee',
+        text: 'Nhân viên',
         path: '/employee'
       },
       {
-        text: 'Work Stage',
+        text: 'Quá trình làm việc',
         path: '/stage'
       },
       {
-        text: 'Role',
+        text: 'Chức vụ',
         path: '/role'
       },
       {
-        text: 'Department',
+        text: 'Phòng ban',
         path: '/department'
       },
       {
-        text: 'Contract',
+        text: 'Hợp đồng',
         path: '/contract'
       },
       {
-        text: 'Clockify',
+        text: 'Chấm công',
         path: '/timekeeping'
       },
       {
-        text: 'Salary',
+        text: 'Bảng lương',
         path: '/tinhLuong'
       }
       ,
       {
-        text: 'Statistical',
+        text: 'Thống kê',
         path: '/thongke'
       }
       ,
       {
-        text: 'Manage Account',
+        text: 'Tài khoản',
         path: '/manageaccount'
       },
       {
-        text: 'Document',
+        text: 'Tài liệu',
         path: '/document'
       }
     ]
