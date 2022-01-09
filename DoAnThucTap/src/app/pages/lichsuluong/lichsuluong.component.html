@@ -1,0 +1,37 @@
+<h3>{{locallization.formatMessage('HistoryPayment')}}</h3>
+<dx-data-grid
+  id="gridContainer"
+  [dataSource]="dataSource"
+  [allowColumnReordering]="true"
+  [showBorders]="true"
+  (onExporting)="onExporting($event)"
+  (onRowInserted)="add($event)"
+  (onRowRemoved)="remove($event)"
+  (onRowUpdated)="update($event)"
+>
+<dxo-search-panel [visible]="true" [width]="240" placeholder="Search"> </dxo-search-panel>
+  <dxo-paging [enabled]="true"></dxo-paging>
+  <dxo-editing
+    mode="row"
+    [allowUpdating]="true"
+    [allowDeleting]="true"
+    [allowAdding]="true"
+  >
+  </dxo-editing>
+  <dxo-grouping [autoExpandAll]="true"></dxo-grouping>
+  <dxo-selection mode="multiple"></dxo-selection>
+  <dxo-export [enabled]="true" [allowExportSelectedData]="true"></dxo-export>
+  <dxi-column dataField="maNV" caption="{{locallization.formatMessage('Name')}}">
+    <dxo-lookup [dataSource]="listEmployee" displayExpr="TenNhanVien" valueExpr="MaNhanVien">
+    </dxo-lookup>
+  </dxi-column>
+  <dxi-column dataField="luong" caption="{{locallization.formatMessage('Salary')}}">
+  </dxi-column>
+  <dxi-column dataField="timePay" caption="{{locallization.formatMessage('PaymentDate')}}" dataType="date"></dxi-column>
+  <dxi-column dataField="checkPay" caption="{{locallization.formatMessage('State')}}" >
+    <dxo-lookup [dataSource]="listState" displayExpr="display" valueExpr="value">
+    </dxo-lookup>
+  </dxi-column>
+  <dxi-column dataField="description" caption="{{locallization.formatMessage('Description')}}" dataType="text"></dxi-column>
+</dx-data-grid>
+

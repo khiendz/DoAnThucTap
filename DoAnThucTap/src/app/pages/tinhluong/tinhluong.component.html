@@ -1,0 +1,39 @@
+<dx-data-grid
+  id="gridContainer"
+  [dataSource]="dataSource"
+  [allowColumnReordering]="true"
+  [showBorders]="true"
+  (onEditingStart)="logEvent('EditingStart')"
+  (onInitNewRow)="logEvent('InitNewRow')"
+  (onRowInserting)="add($event)"
+  (onRowInserted)="logEvent('RowInserted')"
+  (onRowUpdating)="logEvent('RowUpdating')"
+  (onRowUpdated)="update($event)"
+  (onRowRemoving)="logEvent('RowRemoving')"
+  (onRowRemoved)="_delete($event)"
+  (onSaving)="logEvent('Saving')"
+  (onSaved)="logEvent('Saved')"
+  (onEditCanceling)="logEvent('EditCanceling')"
+  (onEditCanceled)="logEvent('EditCanceled')"
+  (onExporting)="onExporting($event)"
+>
+  <dxo-paging [enabled]="true"></dxo-paging>
+  <dxo-editing
+    mode="row"
+    [allowUpdating]="true"
+    [allowDeleting]="true"
+    [allowAdding]="true"
+  >
+  </dxo-editing>
+  <dxo-group-panel [visible]="true"></dxo-group-panel>
+  <dxo-grouping [autoExpandAll]="true"></dxo-grouping>
+  <dxo-selection mode="multiple"></dxo-selection>
+  <dxo-export [enabled]="true" [allowExportSelectedData]="true"></dxo-export>
+  <dxi-column dataField="Luong1" caption="Hệ số lương"></dxi-column>
+  <dxi-column dataField="MaChucVu" caption="Chức vụ">
+    <dxo-lookup [dataSource]="listChucVu" displayExpr="TenChucVu" valueExpr="MaChucVu">
+    </dxo-lookup>
+  </dxi-column>
+  <dxi-column dataField="Thue" caption="Thuế"></dxi-column>
+</dx-data-grid>
+

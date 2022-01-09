@@ -1,0 +1,27 @@
+
+ <div *ngIf="role">
+ <dx-select-box
+ #selectBox
+ [dataSource]="_nhanVien"
+ width="480"
+ displayExpr="TenNhanVien"
+ [value]="_nhanVien[0]"
+ (onSelectionChanged)="changeUser($event)"
+>
+</dx-select-box>
+</div>
+<dx-scheduler
+  id="clock"
+  timeZone="Asia/Ho_Chi_Minh"
+  [dataSource]="appointmentsData"
+  [views]="['week', 'month']"
+  currentView="month"
+  [currentDate]="currentDate"
+  [startDayHour]="9"
+  [endDayHour]="18"
+  [height]="600"
+  (onAppointmentAdding)="add($event)"
+  (onAppointmentDeleting)="_delete($event)"
+  (onAppointmentUpdating)="update($event)"
+>
+</dx-scheduler>

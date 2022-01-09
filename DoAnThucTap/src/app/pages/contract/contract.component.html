@@ -1,0 +1,48 @@
+<h2 class="content-block">Hợp đồng</h2>
+<dx-data-grid
+id="gridTemplate"
+      #gridTemplate
+[dataSource]="listContract" [remoteOperations]="true" [showBorders]="true"
+    [allowColumnReordering]="true" [hoverStateEnabled]="true" [selectedRowKeys]="[]" (onRowUpdated)="update($event)"
+    (onRowInserted)="add($event)" (onRowRemoved)="removed($event)">
+    <dxo-paging [pageSize]="10"></dxo-paging>
+        <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[10, 20, 30]" [showInfo]="false"> </dxo-pager>
+    <dxo-search-panel [visible]="true" [highlightCaseSensitive]="true"></dxo-search-panel>
+    <dxo-editing mode="row" [allowAdding]="true" [allowUpdating]="true" [allowDeleting]="true">
+    </dxo-editing>
+
+    <dxo-editing mode="popup" [allowUpdating]="true">
+        <dxo-popup title="Thông tin về hợp đồng" [showTitle]="true" [width]="600" [height]="425">
+        </dxo-popup>
+        <dxo-form>
+            <dxi-item itemType="group" [colCount]="2" [colSpan]="2">
+                <dxi-item dataField="TenHopDong">
+                    <dxi-validation-rule type="required" message="Field is required">
+                    </dxi-validation-rule>
+                </dxi-item>
+                <dxi-item dataField="MaNhanVien">
+                    <dxi-validation-rule type="required" message="Field is required">
+                    </dxi-validation-rule>
+                </dxi-item>
+                <dxi-item dataField="MaChiTietHopDong">
+                  <dxi-validation-rule type="required" message="Field is required">
+                  </dxi-validation-rule>
+              </dxi-item>
+            </dxi-item>
+        </dxo-form>
+    </dxo-editing>
+
+    <dxi-column caption="STT" width="60" [cellTemplate]="cellTemplateAutoIncrement">
+    </dxi-column>
+
+    <dxi-column dataField="TenHopDong" caption="Tên hợp đồng">
+    </dxi-column>
+
+    <dxi-column dataField="MaNhanVien" caption="Tên nhân viên">
+      <dxo-lookup [dataSource]="listEmployee" valueExpr="MaNhanVien" displayExpr="TenNhanVien"> </dxo-lookup>
+    </dxi-column>
+
+    <dxi-column dataField="MaChiTietHopDong" caption="Tên file hợp đồng">
+      <dxo-lookup [dataSource]="listHopDong" valueExpr="MaChiTietHopDong" displayExpr="Name"> </dxo-lookup>
+    </dxi-column>
+</dx-data-grid>

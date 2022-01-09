@@ -1,0 +1,85 @@
+[{
+  "ID": 1,
+  "Name": "Premier Buy",
+  "Role": "7601 Penn Avenue South",
+  "Department": "Richfield",
+  "Date": "Minnesota",
+  "Salary": 55423
+}, {
+  "ID": 2,
+  "Name": "ElectrixMax",
+  "Role": "263 Shuman Blvd",
+  "Department": "Naperville",
+  "Date": "Illinois",
+  "Salary": 60563
+}, {
+  "ID": 3,
+  "Name": "Video Emporium",
+  "Role": "1201 Elm Street",
+  "Department": "Dallas",
+  "Date": "Texas",
+  "Salary": 75270
+}, {
+  "ID": 4,
+  "Name": "Screen Shop",
+  "Role": "1000 Lowes Blvd",
+  "Department": "Mooresville",
+  "Date": "North Carolina",
+  "Salary": 28117
+}, {
+  "ID": 5,
+  "Name": "Braeburn",
+  "Role": "1 Infinite Loop",
+  "Department": "Cupertino",
+  "Date": "California",
+  "Salary": 95014
+}, {
+  "ID": 6,
+  "Name": "PriceCo",
+  "Role": "30 Hunter Lane",
+  "Department": "Camp Hill",
+  "Date": "Pennsylvania",
+  "Salary": 17011
+}, {
+  "ID": 7,
+  "Name": "Ultimate Gadget",
+  "Role": "1557 Watson Blvd",
+  "Department": "Warner Robbins",
+  "Date": "Georgia",
+  "Salary": 31093
+}, {
+  "ID": 8,
+  "Name": "EZ Stop",
+  "Role": "618 Michillinda Ave.",
+  "Department": "Arcadia",
+  "Date": "California",
+  "Salary": 91007
+}, {
+  "ID": 9,
+  "Name": "Clicker",
+  "Role": "1100 W. Artesia Blvd.",
+  "Department": "Compton",
+  "Date": "California",
+  "Salary": 90220
+}, {
+  "ID": 10,
+  "Name": "Store of America",
+  "Role": "2401 Utah Ave. South",
+  "Department": "Seattle",
+  "Date": "Washington",
+  "Salary": 98134
+}, {
+  "ID": 11,
+  "Name": "Zone Toys",
+  "Role": "1945 S Cienega Boulevard",
+  "Department": "Los Angeles",
+  "Date": "California",
+  "Salary": 90034
+}, {
+  "ID": 12,
+  "Name": "ACME",
+  "Role": "2525 E El Segundo Blvd",
+  "Department": "El Segundo",
+  "Date": "California",
+  "Salary": 90245
+}]

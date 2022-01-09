@@ -5,16 +5,105 @@ export const navigation = [
     icon: 'home'
   },
   {
-    text: 'Examples',
+    text: 'Menu',
     icon: 'folder',
     items: [
       {
-        text: 'Profile',
-        path: '/profile'
+        text: 'Nhân viên',
+        path: '/employee'
       },
       {
-        text: 'Tasks',
-        path: '/tasks'
+        text: 'Quá trình làm việc',
+        path: '/stage'
+      },
+      {
+        text: 'Chức vụ',
+        path: '/role'
+      },
+      {
+        text: 'Phòng ban',
+        path: '/department'
+      },
+      {
+        text: 'Hợp đồng',
+        path: '/contract'
+      },
+      {
+        text: 'Chấm công',
+        path: '/timekeeping'
+      },
+      {
+        text: 'Bảng lương',
+        path: '/tinhLuong'
+      }
+      ,
+      {
+        text: 'Thống kê',
+        path: '/thongke'
+      }
+      ,
+      {
+        text: 'Tài khoản',
+        path: '/manageaccount'
+      },
+      {
+        text: 'Tài liệu',
+        path: '/document'
+      },
+      {
+        text: 'Lịch sử trả lương',
+        path: '/history'
+      }
+    ]
+  }
+];
+export const navigation1 = [
+  {
+    text: 'Home',
+    path: '/home',
+    icon: 'home'
+  },
+  {
+    text: 'Menu',
+    icon: 'folder',
+    items: [
+      {
+        text: 'Clockify',
+        path: '/timekeeping'
+      }
+    ]
+  }
+];
+export const navigation2 = [
+  {
+    text: 'Home',
+    path: '/home',
+    icon: 'home'
+  },
+  {
+    text: 'Menu',
+    icon: 'folder',
+    items: [
+      {
+        text: 'Employee',
+        path: '/employee'
+      },
+      {
+        text: 'Contract',
+        path: '/contract'
+      },
+      {
+        text: 'Clockify',
+        path: '/timekeeping'
+      },
+      {
+        text: 'Salary',
+        path: '/tinhLuong'
+      }
+      ,
+      {
+        text: 'Statistical',
+        path: '/thongke'
       }
     ]
   }
