@@ -8,6 +8,7 @@ import { saveAs } from 'file-saver-es';
 // Our demo infrastructure requires us to use 'file-saver-es'. We recommend that you use the official 'file-saver' package in your applications.
 import { exportDataGrid } from 'devextreme/excel_exporter';
 import * as ExcelJS from 'exceljs';
+import { Localization } from 'src/app/shared/services/localization.service';
 
 @Component({
   selector: 'app-employee-manager',
@@ -25,7 +26,7 @@ export class EmployeeManagerComponent implements OnInit {
 
   @ViewChild('gridTemplate')
   gridTemplateComp!: DxDataGridComponent;
-  constructor(public service:CommondService, public serviceDepartment:DepartmentService, public serviceRole:RoleService) {
+  constructor(public service:CommondService, public serviceDepartment:DepartmentService, public serviceRole:RoleService, public locallization: Localization) {
     this.cellTemplateAutoIncrement = this.cellTemplateAutoIncrement.bind(this);
   }
 

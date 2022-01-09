@@ -17,6 +17,23 @@
       *ngIf="title"
       [text]="title">
     </dxi-item>
+    <dxi-item>
+    <div class="options">
+      <div class="option">
+        <dx-select-box
+          id="selectBox"
+          [dataSource]="locales"
+          displayExpr="Name"
+          valueExpr="Value"
+          [value]="locale"
+          (onValueChanged)="changeLocale($event)"
+          [inputAttr]="{ id: 'selectInput' }"
+          icon="save"
+        >
+        </dx-select-box>
+      </div>
+    </div>
+  </dxi-item>
     <dxi-item
       location="after"
       locateInMenu="auto"

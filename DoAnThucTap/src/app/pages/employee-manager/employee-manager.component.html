@@ -1,4 +1,4 @@
-<h2 class="content-block">Nhân viên</h2>
+<h2 class="content-block">{{locallization.formatMessage('Employee')}}</h2>
 <div>
     <dx-data-grid
     id="gridTemplate"
@@ -78,30 +78,30 @@
         <dxi-column alignment="right" caption="STT" width="60" [cellTemplate]="cellTemplateAutoIncrement">
         </dxi-column>
 
-        <dxi-column dataField="TenNhanVien" alignment="center" caption="Tên nhân viên">
+        <dxi-column dataField="TenNhanVien" alignment="center" caption="{{locallization.formatMessage('Name')}}">
         </dxi-column>
 
-        <dxi-column dataField="NgaySinh" alignment="center" dataType="date" format="dd/MM/yyyy" caption="Ngày sinh">
+        <dxi-column dataField="NgaySinh" alignment="center" dataType="date" format="dd/MM/yyyy" caption="{{locallization.formatMessage('DateOfBirth')}}">
         </dxi-column>
 
-        <dxi-column dataField="GioiTinh" alignment="center" caption="Giới tính">
+        <dxi-column dataField="GioiTinh" alignment="center" caption="{{locallization.formatMessage('Sex')}}">
             <dxo-lookup [dataSource]="sexDataSource" valueExpr="value" displayExpr="caption"> </dxo-lookup>
         </dxi-column>
 
-        <dxi-column dataField="SoDienThoai" alignment="center" caption="Số điện thoại">
+        <dxi-column dataField="SoDienThoai" alignment="center" caption="{{locallization.formatMessage('PhoneNumber')}}">
         </dxi-column>
 
-        <dxi-column dataField="DiaChi" alignment="center" caption="Địa chỉ">
+        <dxi-column dataField="DiaChi" alignment="center" caption="{{locallization.formatMessage('Address')}}">
         </dxi-column>
 
-        <dxi-column dataField="Email" alignment="center" caption="Email">
+        <dxi-column dataField="Email" alignment="center" caption="{{locallization.formatMessage('Email')}}">
         </dxi-column>
 
-        <dxi-column dataField="MaChucVu" alignment="center" caption="Chức vụ">
+        <dxi-column dataField="MaChucVu" alignment="center" caption="{{locallization.formatMessage('Position')}}">
             <dxo-lookup [dataSource]="listRole" valueExpr="MaChucVu" displayExpr="TenChucVu"> </dxo-lookup>
         </dxi-column>
 
-        <dxi-column dataField="MaPhongBan" caption="Phòng ban">
+        <dxi-column dataField="MaPhongBan" caption="{{locallization.formatMessage('Department')}}">
             <dxo-lookup [dataSource]="listDepartment" valueExpr="MaPhongBan" displayExpr="TenPhongBan"> </dxo-lookup>
         </dxi-column>
     </dx-data-grid>

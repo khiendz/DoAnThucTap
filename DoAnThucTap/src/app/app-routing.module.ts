@@ -19,6 +19,8 @@ import { WorkStageComponent } from './pages/work-stage/work-stage.component';
 import { ClockifyComponent } from './pages/clockify/clockify.component';
 import { DocumentManagerComponent } from './pages/document-manager/document-manager.component';
 import { NotFoundComnponent } from './pages/404-not-found/404-not-found.component';
+import { LichSuLuong } from './shared/model/LichSuLuong.model';
+import { LichsuluongComponent } from './pages/lichsuluong/lichsuluong.component';
 
 
 const routes: Routes = [
@@ -107,6 +109,11 @@ const routes: Routes = [
     path: 'document',
     component: DocumentManagerComponent,
     canActivate: [ AuthGuardService ]
+  },
+  {
+    path: 'history',
+    component: LichsuluongComponent,
+    canActivate: [ AuthGuard ]
   },
   {
     path: '**',

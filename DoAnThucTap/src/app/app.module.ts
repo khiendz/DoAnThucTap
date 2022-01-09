@@ -29,6 +29,10 @@ import { WorkStageComponent } from './pages/work-stage/work-stage.component';
 import { ClockifyComponent } from './pages/clockify/clockify.component';
 import { ClockService } from './pages/clockify/clockify.service';
 import { DocumentManagerComponent } from './pages/document-manager/document-manager.component';
+import { ManagerLSL } from './shared/services/managerLSL.service';
+import { LichsuluongComponent } from './pages/lichsuluong/lichsuluong.component';
+import { HeaderService } from './shared/components/header/header.service';
+import { Localization } from './shared/services/localization.service';
 
 @NgModule({
   declarations: [
@@ -39,6 +43,7 @@ import { DocumentManagerComponent } from './pages/document-manager/document-mana
     ManageAccountComponent,
     DocumentManagerComponent,
     WorkStageComponent,
+    LichsuluongComponent,
   ],
   imports: [
     HttpClientModule,
@@ -69,7 +74,7 @@ import { DocumentManagerComponent } from './pages/document-manager/document-mana
     DxChartModule,
     DxSelectBoxModule
   ],
-  providers: [AuthService, ScreenService, AppInfoService, Service, ServiceTinhLuong, ThongKeService, ManageAccountService, ClockService,
+  providers: [AuthService, ScreenService, AppInfoService, Service, ServiceTinhLuong, ThongKeService, ManageAccountService, ClockService, ManagerLSL, Localization,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     Title,],

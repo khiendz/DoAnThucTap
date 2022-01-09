@@ -9,7 +9,7 @@ export class Appointment {
 
   allDay?: boolean;
 
-  id: string = '';
+  MaChamCong: string = '';
 }
 
 // const appointments: Appointment[] = [

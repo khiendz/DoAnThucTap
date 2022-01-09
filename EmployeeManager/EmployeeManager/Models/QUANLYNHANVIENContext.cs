@@ -28,6 +28,7 @@ namespace EmployeeManager.Models
         public virtual DbSet<Phongban> Phongban { get; set; }
         public virtual DbSet<Quatrinhlamviec> Quatrinhlamviec { get; set; }
         public virtual DbSet<Taikhoan> Taikhoan { get; set; }
+        public virtual DbSet<LichSuLuong> LichSuLuong { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -279,6 +280,30 @@ namespace EmployeeManager.Models
                     .HasForeignKey(d => d.MaNhanVien)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_TAIKHOAN_NHANVIEN");
+            });
+
+            modelBuilder.Entity<LichSuLuong>(entity =>
+            {
+                entity.ToTable("LichSuLuong");
+
+                entity.Property(e => e.maLSL).HasMaxLength(50);
+
+                entity.Property(e => e.maNV)
+                    .IsRequired()
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.description)
+                 .IsRequired()
+                 .HasMaxLength(4000);
+
+                entity.Property(e => e.luong)
+                    .IsRequired();
+
+                entity.Property(e => e.timePay)
+                    .IsRequired();
+                entity.Property(e => e.checkPay)
+                 .IsRequired();
+
             });
 
             OnModelCreatingPartial(modelBuilder);

@@ -49,6 +49,10 @@ export const navigation = [
       {
         text: 'Tài liệu',
         path: '/document'
+      },
+      {
+        text: 'Lịch sử trả lương',
+        path: '/history'
       }
     ]
   }

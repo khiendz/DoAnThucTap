@@ -47,7 +47,7 @@ const populationData: Population[] = [{
 }];
 
 const simpleProducts: string[] = [
-  'Chấm Cônng',
+  'Chấm Cônn',
   'Danh sách nhân viên',
   'Danh sách phòng ban',
   'Danh sách chức vụ',

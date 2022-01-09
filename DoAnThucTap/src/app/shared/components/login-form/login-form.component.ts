@@ -44,7 +44,6 @@ export class LoginFormComponent {
     {
     this.authentication.login(username, password).subscribe(
       (res :User) => {
-        debugger
         if(res != null)
         {
           this.authService.logIn(username, password);
