@@ -147,6 +147,8 @@ const dictionary: Dictionary = {
     Position: 'Position',
     Department: 'Department',
     Employee: 'Employee',
+    SalaryBonus: 'Bonus Salary',
+    Sum: "Sum",
   },
   de: {
     Number: 'Nummer',
@@ -167,6 +169,8 @@ const dictionary: Dictionary = {
     Position: 'Position',
     Department: 'Abteilung',
     Employee: 'Mitarbeiter',
+    SalaryBonus: 'Bonus Gehalt',
+    Sum: "Summe",
   },
   ru: {
     Number: 'Номер',
@@ -187,6 +191,8 @@ const dictionary: Dictionary = {
     Position: 'Должность',
     Department: 'отделение',
     Employee: 'Наемный рабочий',
+    SalaryBonus: 'премиальная заработная плата',
+    Sum: "Сумма",
   },
   vn: {
     Number: 'Số',
@@ -207,6 +213,8 @@ const dictionary: Dictionary = {
     Position: 'Chức vụ',
     Department: 'Phòng ban',
     Employee: 'Nhân viên',
+    SalaryBonus: 'Lương Bonus',
+    Sum: "Tổng",
   }
 };
 

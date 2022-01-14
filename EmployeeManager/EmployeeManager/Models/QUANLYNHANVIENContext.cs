@@ -303,6 +303,10 @@ namespace EmployeeManager.Models
                     .IsRequired();
                 entity.Property(e => e.checkPay)
                  .IsRequired();
+                entity.Property(e => e.luongBonus)
+                   .IsRequired();
+                entity.Property(e => e.sum)
+                 .IsRequired();
 
             });
 

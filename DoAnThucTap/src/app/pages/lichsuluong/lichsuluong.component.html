@@ -8,6 +8,7 @@
   (onRowInserted)="add($event)"
   (onRowRemoved)="remove($event)"
   (onRowUpdated)="update($event)"
+  keyExpr="maLSL"
 >
 <dxo-search-panel [visible]="true" [width]="240" placeholder="Search"> </dxo-search-panel>
   <dxo-paging [enabled]="true"></dxo-paging>
@@ -25,13 +26,17 @@
     <dxo-lookup [dataSource]="listEmployee" displayExpr="TenNhanVien" valueExpr="MaNhanVien">
     </dxo-lookup>
   </dxi-column>
-  <dxi-column dataField="luong" caption="{{locallization.formatMessage('Salary')}}">
+  <dxi-column dataField="timePay" caption="{{locallization.formatMessage('PaymentDate')}}" dataType="date" ></dxi-column>
+  <dxi-column dataField="luong" caption="{{locallization.formatMessage('Salary')}}" [allowEditing]="false">
   </dxi-column>
-  <dxi-column dataField="timePay" caption="{{locallization.formatMessage('PaymentDate')}}" dataType="date"></dxi-column>
+  <dxi-column dataField="luongBonus" caption="{{locallization.formatMessage('SalaryBonus')}}">
+  </dxi-column>
+  <dxi-column dataField="sum" caption="{{locallization.formatMessage('Sum')}}" dataType="Number" [allowEditing]="false">
+  </dxi-column>
+  <dxi-column dataField="description" caption="{{locallization.formatMessage('Description')}}" dataType="text"></dxi-column>
   <dxi-column dataField="checkPay" caption="{{locallization.formatMessage('State')}}" >
     <dxo-lookup [dataSource]="listState" displayExpr="display" valueExpr="value">
     </dxo-lookup>
   </dxi-column>
-  <dxi-column dataField="description" caption="{{locallization.formatMessage('Description')}}" dataType="text"></dxi-column>
 </dx-data-grid>
 

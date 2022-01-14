@@ -59,7 +59,12 @@ export class ClockifyComponent implements OnInit {
     this.employee.getListEmployee().subscribe((res) => {
       this._nhanVien = res;
     });
-    this.role = user.Role == 'Admin' ? true : false;
+    if(user.Role == 'Admin' || user.Role == 'Hr')
+    {
+      this.role = true;
+    }else
+    this.role = false;
+
     this.clockify.getList().subscribe((res) => {
       this.listLuong = res;
       if (this.role)

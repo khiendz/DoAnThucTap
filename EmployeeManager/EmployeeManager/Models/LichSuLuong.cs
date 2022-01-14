@@ -17,11 +17,13 @@ namespace EmployeeManager.Models
         public DateTime timePay { get; set; }
         public bool checkPay { get; set; }
         public string description { get; set; }
+        public double luongBonus { get; set; }
+        public double sum { get; set; }
 
         public LichSuLuong()
         { }
 
-        public LichSuLuong(string maLSL, string maNV, double luong, DateTime timePay, bool checkPay, string description)
+        public LichSuLuong(string maLSL, string maNV, double luong, DateTime timePay, bool checkPay, string description, double luongBonus, double sum)
         {
             this.maLSL = maLSL;
             this.maNV = maNV;
@@ -29,6 +31,9 @@ namespace EmployeeManager.Models
             this.timePay = timePay;
             this.checkPay = checkPay;
             this.description = description;
+            this.luongBonus = luongBonus;
+            this.sum = sum;
+
         }
     }
 }

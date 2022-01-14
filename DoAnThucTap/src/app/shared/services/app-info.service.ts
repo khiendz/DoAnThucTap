@@ -5,7 +5,7 @@ export class AppInfoService {
   constructor() {}
 
   public get title() {
-    return 'Đồ Án Thực Tập: Quản Lý Nhân Sự';
+    return 'Dự Án Thực Tập: Quản Lý Nhân Sự';
   }
 
   public get currentYear() {
